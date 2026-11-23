@@ -4,40 +4,73 @@
 :root{--n:#0b1730;--n2:#122747;--c:#20c5df;--bg:#f3f7fb;--ink:#15243b;--m:#6b7b91;--line:#dce5ef}*{box-sizing:border-box}body{margin:0;font:14px/1.5 Inter,Segoe UI,Arial;background:var(--bg);color:var(--ink)}button,input,textarea,select{font:inherit}.hidden{display:none!important}.btn{border:0;border-radius:9px;padding:9px 13px;background:var(--n2);color:white;cursor:pointer;font-weight:650}.cyan{background:var(--c);color:#052234}.light{background:#eaf3f8;color:#12314c}.danger{background:#b83245}.small{padding:6px 9px;font-size:12px}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 80% 20%,#1d6987,transparent 28%),linear-gradient(135deg,#08152c,#102d50)}.loginbox{width:min(930px,100%);display:grid;grid-template-columns:1.1fr .9fr;background:white;border-radius:22px;overflow:hidden;box-shadow:0 30px 90px #0005}.hero{padding:45px;color:white;background:linear-gradient(145deg,#0d1d3b,#164d6b);position:relative;min-height:420px;overflow:hidden}.brand{font-size:24px;font-weight:850}.brand span{color:var(--c)}.hero h1{font-size:40px;line-height:1.1;margin:65px 0 12px}.hero p{color:#c6d9e9}.orb{position:absolute;width:220px;height:220px;border-radius:50%;background:linear-gradient(140deg,#2bd5e9,#2369b8);right:-45px;bottom:-60px;opacity:.65;animation:float 5s infinite}.person{position:absolute;right:85px;bottom:22px;width:120px;animation:float 4s infinite}.head{height:48px;width:48px;border-radius:50%;background:#d99a70;margin:auto}.torso{height:115px;width:94px;border-radius:34px 34px 12px 12px;background:#e7f4fa;margin:auto}.loginform{padding:45px}.loginform h2{font-size:28px;margin:28px 0 3px}.field{margin:12px 0}.field label{display:block;font-size:12px;font-weight:750;margin-bottom:5px}.field input,.field textarea,.field select{width:100%;padding:10px;border:1px solid #cbd7e4;border-radius:9px}.app{display:flex;min-height:100vh}.side{width:240px;flex-shrink:0;background:linear-gradient(180deg,var(--n),#102746);color:#dbe8f7;padding:20px 14px}.side .brand{margin:0 8px 25px}.navlabel{color:#91a8c3;margin:20px 12px 7px;text-transform:uppercase;font-size:10px;letter-spacing:1px}.nav button{width:100%;display:block;text-align:left;border:0;background:transparent;color:#c8d7e9;padding:11px;border-radius:9px;margin:3px 0;cursor:pointer}.nav button.active,.nav button:hover{background:#1b3a5c;color:white}.main{flex:1;min-width:0}.top{height:68px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 25px}.content{padding:25px;max-width:1400px;margin:auto}.muted{color:var(--m)}h1{font-size:27px;margin:0 0 5px}h2{font-size:19px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{background:white;border:1px solid var(--line);border-radius:15px;padding:18px;margin-bottom:15px;box-shadow:0 5px 20px #17345a08}.metric{font-size:30px;font-weight:850}.row,.between,.actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.between{justify-content:space-between}.item{border:1px solid var(--line);border-radius:10px;padding:11px;margin:7px 0;background:white}.drop{border:2px dashed #9bb2c8;border-radius:12px;padding:22px;text-align:center;color:var(--m);margin:12px 0}.pill{font-size:11px;padding:4px 8px;border-radius:20px;background:#e7f8fb;color:#08758a}.notice{background:#fff8e6;border:1px solid #f2dfa5;padding:12px;border-radius:10px;margin:12px 0}.success{background:#e8f8ef;border:1px solid #b9e7c9;padding:12px;border-radius:9px}.question{padding:13px;border:1px solid var(--line);border-radius:10px;margin:10px 0}.question input[type=text],.question textarea,.question select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin:7px 0}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{font-size:11px;text-transform:uppercase;color:var(--m)}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}@media(max-width:800px){.side{width:185px}.grid{grid-template-columns:repeat(2,1fr)}.loginbox{grid-template-columns:1fr}.hero{min-height:260px}.hero h1{margin:25px 0 10px}}@media(max-width:580px){.app{display:block}.side{width:100%;padding:10px}.side .brand{margin:0 8px 8px}.nav{display:flex;overflow:auto}.navlabel{display:none}.nav button{white-space:nowrap;width:auto}.top{padding:0 12px}.content{padding:13px}.loginform{padding:25px}}
 </style></head><body>
 <section id="login" class="login"><div class="loginbox"><div class="hero"><div class="brand">Furqon<span>HUB</span></div><h1>Selamat Datang</h1><p>Tempat dokumen, data, formulir, dan aktivitas penelitian Faqih Ali Akbar Furqoni.</p><span class="pill">RESEARCH MANAGEMENT SYSTEM</span><div class="orb"></div><div class="person"><div class="head"></div><div class="torso"></div></div></div><div class="loginform"><div class="brand" style="color:#102747">Furqon<span>HUB</span></div><h2>Selamat datang</h2><p class="muted">Masuk ke ruang kerja penelitian Anda.</p><div id="loginMsg"></div><form id="loginForm"><div class="field"><label>USERNAME</label><input id="lu" required></div><div class="field"><label>PASSWORD</label><input id="lp" type="password" required></div><button class="btn cyan" style="width:100%">Login</button></form></div></div></section>
-<div id="app" class="app hidden"><aside class="side"><div class="brand">Furqon<span>HUB</span></div><nav class="nav"><div class="navlabel">Workspace</div><button data-p="dashboard" class="active">▦ Dashboard</button><button data-p="files">▤ Penyimpanan File</button><button data-p="images">▧ Penyimpanan Gambar</button><button data-p="spss">◉ SPSS Workspace</button><div class="navlabel">Research</div><button data-p="builder">☷ Buat Form Baru</button><button data-p="available">✎ Form Tersedia</button><button data-p="responses">▥ Jawaban Responden</button><div class="navlabel">Administration</div><button data-p="users" id="userNav">♙ Manajemen Akun</button><button data-p="settings">⚙ Pengaturan</button></nav></aside><section class="main"><header class="top"><b id="title">Dashboard</b><div class="row"><span id="firebaseStatus" class="pill">Menghubungkan Firebase…</span><span id="who" class="muted"></span><button class="btn light small" id="logout">Keluar</button></div></header><main id="view" class="content"></main></section></div>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<div id="app" class="app hidden"><aside class="side"><div class="brand">Furqon<span>HUB</span></div><nav class="nav"><div class="navlabel">Workspace</div><button data-p="dashboard" class="active">▦ Dashboard</button><button data-p="files">▤ Penyimpanan File</button><button data-p="images">▧ Penyimpanan Gambar</button><button data-p="spss">◉ SPSS Workspace</button><div class="navlabel">Research</div><button data-p="builder">☷ Buat Form Baru</button><button data-p="available">✎ Form Tersedia</button><button data-p="responses">▥ Jawaban Responden</button><div class="navlabel">Administration</div><button data-p="users" id="userNav">♙ Manajemen Akun</button><button data-p="settings">⚙ Pengaturan</button></nav></aside><section class="main"><header class="top"><b id="title">Dashboard</b><div class="row"><span id="who" class="muted"></span><button class="btn light small" id="logout">Keluar</button></div></header><main id="view" class="content"></main></section></div>
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],KEY='furqonhub_html_v1';
+const firebaseConfig = {
+  apiKey: "AIzaSyA3KFQrSDsRzu_5pAEYZCjP7_XjUKE5S6g",
+  authDomain: "penelitianku-237cb.firebaseapp.com",
+  databaseURL: "https://penelitianku-237cb-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "penelitianku-237cb",
+  storageBucket: "penelitianku-237cb.firebasestorage.app",
+  messagingSenderId: "912219694582",
+  appId: "1:912219694582:web:d6d809a3a9aba090e413d7"
+};
+
+// Inisialisasi Firebase dan koneksi ke Realtime Database.
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const firebaseDB = firebase.database();
+
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const initial=()=>({users:[{id:'u1',username:'admin',password:'123',role:'admin'}],folders:{files:[{id:'fr',name:'Root',parent:null}],images:[{id:'ir',name:'Root',parent:null}]},assets:[],forms:[],responses:[],logs:[]});
-let db;try{db=JSON.parse(localStorage.getItem(KEY))||initial()}catch{db=initial()}
-const firebaseConfig={apiKey:"AIzaSyA3KFQrSDsRzu_5pAEYZCjP7_XjUKE5S6g",authDomain:"penelitianku-237cb.firebaseapp.com",databaseURL:"https://penelitianku-237cb-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"penelitianku-237cb",storageBucket:"penelitianku-237cb.firebasestorage.app",messagingSenderId:"912219694582",appId:"1:912219694582:web:d6d809a3a9aba090e413d7"};
-let firebaseRef=null,firebaseReady=false,remoteApplying=false;
-function setFirebaseStatus(message,ok=false){const el=$('#firebaseStatus');if(el){el.textContent=message;el.style.background=ok?'#e8f8ef':'#fff2df';el.style.color=ok?'#167044':'#8a5a12'}}
-function save(){localStorage.setItem(KEY,JSON.stringify(db));if(firebaseReady&&firebaseRef&&!remoteApplying){firebaseRef.set(db).catch(err=>{console.error('Firebase save error:',err);setFirebaseStatus('Firebase gagal menyimpan')})}}
-function connectFirebase(){
- try{
-  if(!window.firebase){setFirebaseStatus('SDK Firebase tidak termuat');return}
-  if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
-  firebase.auth().signInAnonymously().then(()=>{firebaseRef=firebase.database().ref('furqonhub/sharedState');return firebaseRef.once('value')}).then(snapshot=>{
-   if(snapshot.exists()){db=snapshot.val();localStorage.setItem(KEY,JSON.stringify(db))}
-   else{firebaseReady=true;return firebaseRef.set(db)}
-  }).then(()=>{
-   firebaseReady=true;setFirebaseStatus('Firebase tersinkron',true);
-   firebaseRef.on('value',snapshot=>{
-    if(!snapshot.exists())return;
-    const incoming=snapshot.val();
-    if(JSON.stringify(incoming)!==JSON.stringify(db)){
-     remoteApplying=true;db=incoming;localStorage.setItem(KEY,JSON.stringify(db));remoteApplying=false;
-     if(me){$('#who').textContent=me.username+' · '+me.role;render()}
-    }
-   },err=>{console.error(err);setFirebaseStatus('Akses database ditolak')});
-  }).catch(err=>{console.error('Firebase connection error:',err);setFirebaseStatus('Firebase belum terhubung · lokal')});
- }catch(err){console.error(err);setFirebaseStatus('Firebase belum terhubung · lokal')}
+
+// Seluruh data aplikasi disimpan pada satu lokasi Firebase Realtime Database.
+const rootRef=firebaseDB.ref('furqonhub');
+let db=initial(),firebaseReady=false,me=null,page='dashboard',folder={files:'fr',images:'ir'};
+let resolveFirebaseReady;
+const firebaseReadyPromise=new Promise(resolve=>{resolveFirebaseReady=resolve});
+
+function save(){
+  if(!firebaseReady) return;
+  rootRef.set(db).catch(error=>{
+    console.error('Gagal menyimpan ke Firebase:',error);
+    alert('Data gagal disimpan ke Firebase. Periksa koneksi dan Firebase Database Rules.');
+  });
 }
-function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function log(s){db.logs.unshift({s,t:new Date().toLocaleString('id-ID')});save()}
-let me=null,page='dashboard',folder={files:'fr',images:'ir'};function login(){let username=$('#lu').value.trim(),password=$('#lp').value;let u=db.users.find(x=>x.username===username&&x.password===password);/* Pastikan kredensial admin awal tetap dapat digunakan pada prototipe lokal. */if(!u&&username==='admin'&&password==='123'){u=db.users.find(x=>x.username==='admin');if(!u){u={id:'u1',username:'admin',password:'123',role:'admin'};db.users.push(u)}else{u.password='123';u.role='admin'}save()}if(!u){$('#loginMsg').innerHTML='<div class="notice">Username atau password salah.</div>';return}me=u;log('Login: '+u.username);$('#login').classList.add('hidden');$('#app').classList.remove('hidden');$('#who').textContent=u.username+' · '+u.role;$('#userNav').classList.toggle('hidden',u.role!=='admin');go('dashboard')}$('#loginForm').onsubmit=e=>{e.preventDefault();login()};$('#logout').onclick=()=>{me=null;$('#app').classList.add('hidden');$('#login').classList.remove('hidden')};$$('[data-p]').forEach(b=>b.onclick=()=>go(b.dataset.p));
+rootRef.on('value',snapshot=>{
+  if(snapshot.exists()){
+    db=snapshot.val();
+    // Menjaga struktur data tetap tersedia bila database baru dibuat.
+    db.users=db.users||[];
+    db.folders=db.folders||{files:[{id:'fr',name:'Root',parent:null}],images:[{id:'ir',name:'Root',parent:null}]};
+    db.assets=db.assets||[];
+    db.forms=db.forms||[];
+    db.responses=db.responses||[];
+    db.logs=db.logs||[];
+  }else{
+    db=initial();
+    rootRef.set(db).catch(error=>console.error('Inisialisasi Firebase gagal:',error));
+  }
+  firebaseReady=true;
+  resolveFirebaseReady();
+  if(me){
+    const currentId=me.id;
+    me=db.users.find(user=>user.id===currentId)||me;
+    $('#who').textContent=me.username+' · '+me.role;
+    $('#userNav').classList.toggle('hidden',me.role!=='admin');
+    render();
+  }
+},error=>{
+  console.error('Firebase Realtime Database error:',error);
+  alert('Tidak dapat terhubung ke Firebase. Periksa konfigurasi dan Database Rules.');
+  resolveFirebaseReady();
+});
+
+function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function log(s){db.logs.unshift({s,t:new Date().toLocaleString('id-ID')});save()}async function login(){await firebaseReadyPromise;let username=$('#lu').value.trim(),password=$('#lp').value;let u=db.users.find(x=>x.username===username&&x.password===password);/* Pastikan kredensial admin awal tetap dapat digunakan pada prototipe lokal. */if(!u&&username==='admin'&&password==='123'){u=db.users.find(x=>x.username==='admin');if(!u){u={id:'u1',username:'admin',password:'123',role:'admin'};db.users.push(u)}else{u.password='123';u.role='admin'}save()}if(!u){$('#loginMsg').innerHTML='<div class="notice">Username atau password salah.</div>';return}me=u;log('Login: '+u.username);$('#login').classList.add('hidden');$('#app').classList.remove('hidden');$('#who').textContent=u.username+' · '+u.role;$('#userNav').classList.toggle('hidden',u.role!=='admin');go('dashboard')}$('#loginForm').onsubmit=e=>{e.preventDefault();login()};$('#logout').onclick=()=>{me=null;$('#app').classList.add('hidden');$('#login').classList.remove('hidden')};$$('[data-p]').forEach(b=>b.onclick=()=>go(b.dataset.p));
 function go(p){if(p==='users'&&me.role!=='admin')p='dashboard';page=p;$$('[data-p]').forEach(b=>b.classList.toggle('active',b.dataset.p===p));$('#title').textContent=({dashboard:'Dashboard',files:'Penyimpanan File',images:'Penyimpanan Gambar',spss:'SPSS Workspace',builder:'Buat Form Baru',available:'Form Tersedia',responses:'Jawaban Responden',users:'Manajemen Akun',settings:'Pengaturan'})[p];render()}
 function render(){({dashboard,files:()=>explorer('files'),images:()=>explorer('images'),spss,builder,available,responses,users,settings})[page]()}
 function dashboard(){let n=k=>db.assets.filter(a=>a.kind===k).length;$('#view').innerHTML=`<h1>Dashboard</h1><p class="muted">Ringkasan workspace penelitian.</p><div class="grid">${metric('Dokumen',n('files'),'▤')}${metric('Gambar',n('images'),'▧')}${metric('Formulir',db.forms.length,'☷')}${metric('Responden',db.responses.length,'♙')}</div><div class="card"><h2>Aktivitas terbaru</h2>${db.logs.slice(0,10).map(x=>`<div class="item"><b>${esc(x.s)}</b><div class="muted">${esc(x.t)}</div></div>`).join('')||'<p class="muted">Belum ada aktivitas.</p>'}</div>`}function metric(a,b,c){return `<div class="card"><div class="muted">${c} ${a}</div><div class="metric">${b}</div></div>`}
@@ -51,5 +84,5 @@ function fill(id){let f=db.forms.find(x=>x.id===id),now=new Date();if(!f||!f.act
 function responses(){$('#view').innerHTML=`<h1>Jawaban Responden</h1><div class="card"><div class="between"><p>${db.responses.length} jawaban</p><button class="btn cyan" id="csv">Ekspor CSV</button></div>${db.responses.map(r=>`<details class="item"><summary>${esc(r.form)} · ${esc(r.date)}</summary>${r.answers.map(a=>`<p><b>${esc(a.q)}</b><br>${esc(Array.isArray(a.a)?a.a.join(', '):a.a||'')}</p>`).join('')}</details>`).join('')||'Belum ada jawaban.'}</div>`;$('#csv').onclick=()=>{let rows=[['Form','Waktu','Pertanyaan','Jawaban']];db.responses.forEach(r=>r.answers.forEach(a=>rows.push([r.form,r.date,a.q,Array.isArray(a.a)?a.a.join('; '):a.a])));let csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv'}));a.download='furqonhub_responses.csv';a.click()}}
 function users(){if(me.role!=='admin')return;$('#view').innerHTML=`<h1>Manajemen Akun</h1><div class="card"><h2>Tambah akun</h2><div class="row"><input id="un" placeholder="Username"><input id="pw" type="password" placeholder="Password"><select id="role"><option value="viewer">Pelihat</option><option value="admin">Admin</option></select><button class="btn cyan" id="adduser">Tambah</button></div></div><div class="card"><h2>Daftar akun</h2><div class="tablewrap"><table><tr><th>Username</th><th>Hak</th><th>Aksi</th></tr>${db.users.map(u=>`<tr><td>${esc(u.username)}</td><td>${u.role}</td><td><button class="btn light small" data-edit="${u.id}">Edit</button> <button class="btn danger small" data-remove="${u.id}" ${u.id===me.id?'disabled':''}>Hapus</button></td></tr>`).join('')}</table></div></div>`;$('#adduser').onclick=()=>{let username=$('#un').value.trim(),password=$('#pw').value;if(!username||!password)return alert('Isi username dan password.');if(db.users.some(u=>u.username===username))return alert('Username sudah dipakai.');db.users.push({id:uid(),username,password,role:$('#role').value});save();users()};$$('[data-edit]').forEach(b=>b.onclick=()=>{let u=db.users.find(x=>x.id===b.dataset.edit),n=prompt('Username',u.username);if(!n)return;let r=prompt('Role admin atau viewer',u.role);if(!['admin','viewer'].includes(r))return alert('Role tidak valid');let p=prompt('Password baru (kosong = tidak diubah)','');u.username=n;u.role=r;if(p)u.password=p;save();users()});$$('[data-remove]').forEach(b=>b.onclick=()=>{if(confirm('Hapus akun?')){db.users=db.users.filter(u=>u.id!==b.dataset.remove);save();users()}})}
 function settings(){$('#view').innerHTML=`<h1>Pengaturan</h1><div class="card"><h2>Ganti password</h2><input id="old" type="password" placeholder="Password lama"><input id="new" type="password" placeholder="Password baru"><button class="btn cyan" id="change">Simpan</button></div>`;$('#change').onclick=()=>{let u=db.users.find(x=>x.id===me.id);if(u.password!==$('#old').value)return alert('Password lama salah');if($('#new').value.length<6)return alert('Minimal 6 karakter');u.password=$('#new').value;save();alert('Password diubah')}}
-function blob(data,name,type){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click()}save();connectFirebase();
+function blob(data,name,type){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click()}save();
 </script></body></html>
