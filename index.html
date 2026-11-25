@@ -417,7 +417,8 @@
 .respond-back{margin-bottom:12px}
 .respond-form-shell{width:min(760px,100%);margin:0 auto 25px}
 .respond-form-banner{position:relative;overflow:hidden;padding:27px 28px 22px;border:1px solid #e0eaf0;border-top:8px solid #159caf;border-radius:17px;background:#fff;box-shadow:0 8px 26px #19365708}
-.respond-form-banner .section-eyebrow{color:#0b879b}.respond-form-banner h2{margin:8px 0 7px;color:#18334e;font-size:25px;line-height:1.25}.respond-form-banner p{margin:0;color:#708397;font-size:13px;line-height:1.65;white-space:pre-wrap}
+.respond-form-banner .section-eyebrow{color:var(--form-primary,#0b879b)}
+.respond-form-shell{--form-primary:#159caf}.respond-form-shell .respond-number{background:color-mix(in srgb,var(--form-primary) 12%,white);color:var(--form-primary)}.respond-form-shell .respond-choice:has(input:checked){border-color:var(--form-primary);background:color-mix(in srgb,var(--form-primary) 7%,white)}.respond-form-shell .respond-submit{background:var(--form-primary);color:#fff}.respond-form-banner h2{margin:8px 0 7px;color:#18334e;font-size:25px;line-height:1.25}.respond-form-banner p{margin:0;color:#708397;font-size:13px;line-height:1.65;white-space:pre-wrap}
 .respond-form-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.respond-form-meta span{padding:6px 10px;border-radius:20px;background:#eff7f9;color:#56758a;font-size:10px}
 .respond-instruction{padding:15px 5px 8px;color:#8a9aaa;font-size:10px}
 .respond-question{margin:10px 0;padding:20px 21px;border:1px solid #e4ebf0;border-radius:14px;background:#fff;box-shadow:0 4px 15px #19365706;transition:border-color .15s,box-shadow .15s}
@@ -456,10 +457,83 @@
 .response-actions .btn:disabled{opacity:.6;cursor:wait}
 @media(max-width:560px){.response-actions .btn{width:100%;min-height:40px}.response-item summary{gap:7px}}
 
+
+
+/* Popup stack: popup yang terakhir dibuka/diaktifkan selalu berada paling atas. */
+.form-modal,.form-settings-panel,.form-preview-modal{isolation:isolate}
+.popup-layer-active{will-change:z-index}
+
+/* ===== Form question types, settings and document import ===== */
+.form-tools-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:14px 0}
+.form-tools-row .btn,.import-trigger{font-size:12px;cursor:pointer}
+.form-settings-panel{border:1px solid #dce8ef;background:#fbfdff;padding:18px;margin:12px 0 18px}
+/* Pengaturan formulir tampil sebagai popup mandiri, terpisah dari editor */
+.form-settings-panel:not(.hidden){position:fixed;z-index:11001;top:50%;left:50%;transform:translate(-50%,-50%);width:min(680px,calc(100vw - 24px));max-height:90vh;overflow-y:auto;margin:0;border:1px solid #dce8ef;border-radius:16px;background:#fff;box-shadow:0 0 0 100vmax #08182dcc,0 25px 90px #06172e66}
+.form-settings-panel>.between{position:sticky;top:-18px;z-index:2;padding:4px 0 12px;background:#fff;border-bottom:1px solid #edf1f5}
+.form-preview-modal{z-index:12000}
+.form-settings-panel h2{margin:0;font-size:17px}.form-settings-panel .between{margin-bottom:12px}
+.settings-group{padding:15px 0;border-top:1px solid #e7edf3}
+.settings-group h3{margin:0 0 3px;font-size:14px;color:#263d54}
+.settings-group>p{margin:0 0 10px;color:#8a99aa;font-size:11px}
+.setting-switch{position:relative;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid #edf1f5;font-size:12px;color:#354b60;cursor:pointer;min-height:40px}
+.setting-switch input{position:absolute;right:0;top:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:2}
+.setting-switch i{position:relative;flex:0 0 36px;width:36px;height:20px;border-radius:20px;background:#cbd5df;transition:.18s;pointer-events:none}
+.setting-switch i:before{content:"";position:absolute;width:14px;height:14px;left:3px;top:3px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0002;transition:.18s}
+.setting-switch input:checked+i{background:#7257e8}
+.setting-switch input:checked+i:before{transform:translateX(16px)}
+.setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #edf1f5}
+.setting-row>div{display:flex;flex-direction:column;gap:3px}.setting-row b{font-size:12px;font-weight:600}.setting-row small{font-size:10px;color:#8797a8}
+.setting-row select{min-width:135px;padding:8px;border:1px solid #dce5ed;border-radius:8px;background:white;font-size:11px}
+.settings-subheading{margin:15px 0 2px;color:#8b9aaa;font-size:9px;font-weight:800;letter-spacing:.8px}
+.quiz-review{margin:14px 0;text-align:left;padding:12px;border:1px solid #e1e9f0;border-radius:10px;background:#fff}.quiz-review h3{font-size:13px;margin:0 0 8px}.quiz-review-item{padding:9px 0;border-top:1px solid #edf1f5;display:flex;flex-direction:column;gap:4px}.quiz-review-item b{font-size:11px}.quiz-review-item small{font-size:10px;color:#687b8e}.quiz-extra-settings{padding:12px 13px 14px;margin:10px 0 0;border:1px solid #e2e8f2;border-radius:10px;background:#fff}
+.quiz-extra-settings .settings-subheading:first-child{margin-top:0}
+.setting-radio-row{display:flex;align-items:flex-start;gap:9px;padding:8px 0;font-size:11px;color:#344b61;cursor:pointer}.setting-radio-row input{margin-top:2px;accent-color:#6550df}.setting-radio-row span{display:flex;flex-direction:column;gap:3px}.setting-radio-row small{font-size:10px;color:#8797a8}.quiz-score-default{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:11px;color:#52677b}.quiz-score-default>span:first-child{flex:1 1 100%;display:flex;flex-direction:column;gap:4px}.quiz-score-default>span:first-child b{display:block}.quiz-score-default>span:first-child small{display:block;font-size:10px;color:#8797a8}
+.quiz-score-default input{width:68px;padding:7px;border:1px solid #dce5ed;border-radius:7px;text-align:right}.settings-save-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 0 2px;margin-top:12px;border-top:1px solid #e7edf3}.settings-save-bar>small{flex:1 1 240px;color:#8797a8;font-size:10px}
+.quiz-help{font-size:10px;color:#8292a3;margin:5px 0 0}
+.theme-editor{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.theme-control{display:flex;flex-direction:column;gap:5px}.theme-control label,.theme-control>b{font-size:11px;font-weight:650;color:#344b61}.theme-control select,.theme-control input[type=number]{padding:8px;border:1px solid #dce5ed;border-radius:8px;background:#fff;font-size:11px}.theme-colors{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}.theme-swatch{width:25px;height:25px;border:2px solid #fff;border-radius:50%;cursor:pointer;box-shadow:0 0 0 1px #cbd5df}.theme-swatch.active{outline:2px solid #6550df;outline-offset:2px}.theme-bg-swatch{width:25px;height:25px;border:1px solid #cbd5df;border-radius:50%;cursor:pointer}.theme-bg-swatch.active{outline:2px solid #6550df;outline-offset:2px}.theme-image-preview{width:100%;max-height:95px;object-fit:cover;border-radius:8px;margin-top:7px}.form-preview-modal{position:fixed;inset:0;z-index:120;background:#08152c88;display:grid;place-items:center;padding:18px}.form-preview-panel{width:min(820px,100%);max-height:92vh;overflow:auto;background:#f3f7fb;border-radius:17px;box-shadow:0 25px 80px #0005}.form-preview-head{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#fff;border-bottom:1px solid #e3eaf0}.form-preview-content{padding:20px}.form-preview-content .respond-form-shell{margin-bottom:0}.preview-question{pointer-events:none}.form-preview-content .respond-form-banner{background:var(--preview-bg,#fff);border-top-color:var(--preview-primary,#159caf)}.form-preview-content .respond-question{background:var(--preview-card,#fff)}
+@media(max-width:580px){.theme-editor{grid-template-columns:1fr}.form-preview-modal{padding:7px}.form-preview-content{padding:10px}}
+.setting-switch:focus-within{outline:2px solid #c8c1fa;outline-offset:2px;border-radius:7px}
+.answer-key-box{margin-top:13px;padding:12px;border:1px solid #c9e4e9;border-radius:10px;background:#f0fafb}
+.answer-key-box>b{display:block;margin-bottom:8px;color:#087b8e;font-size:11px}
+.answer-key-options label{display:flex;flex-direction:column;gap:5px;font-size:11px}
+.answer-key-options select,.question-points{padding:8px;border:1px solid #d5e1e8;border-radius:8px;background:white}
+.question-points{width:75px;margin:5px 0 0 8px}
+.correct-check{display:block;margin:5px 0;font-size:11px}
+.scale-editor{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.scale-editor label{display:flex;flex-direction:column;gap:4px;font-size:10px;color:#687b8e}
+.scale-editor input{width:100%;padding:8px;border:1px solid #dce6ed;border-radius:8px}
+.rating-options{display:flex;gap:12px;margin:9px 0}
+.rating-options label{cursor:pointer;color:#f0ad32;font-size:27px}
+.rating-options input{position:absolute;opacity:0}
+.rating-options input:checked+span{color:#e99a00}
+.respond-input,.respond-textarea{width:100%;padding:11px;border:1px solid #dce6ed;border-radius:9px;background:#fff}
+.respond-progress{padding:13px 15px;margin-bottom:12px;border:1px solid #e5edf3;border-radius:11px;background:#fff}
+.respond-progress>div:first-child{display:flex;justify-content:space-between;font-size:10px;color:#718397;margin-bottom:7px}
+.respond-progress-track{height:7px;background:#e9eff4;border-radius:20px;overflow:hidden}
+.respond-progress-track i{display:block;width:0;height:100%;background:#20b9d0;transition:width .2s}
+.scale-labels{display:flex;justify-content:space-between;color:#8393a3;font-size:10px;margin:8px 0}
+@media(max-width:580px){.form-tools-row{display:grid;grid-template-columns:1fr}.form-tools-row .btn,.import-trigger{width:100%;text-align:center}.form-settings-panel{padding:13px}.setting-row{align-items:flex-start;flex-direction:column}.setting-row select{width:100%}.scale-editor{grid-template-columns:1fr 1fr}}
+
+
+/* Revisi 8: modern settings, grouped responses and respondent form */
+.settings-page-hero{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:26px 28px;margin-bottom:18px;border-radius:20px;background:linear-gradient(120deg,#102747,#15536e 68%,#07899a);color:#fff;box-shadow:0 14px 32px #10274718}.settings-page-hero h1{color:#fff;margin:5px 0 7px;font-size:27px}.settings-page-hero p{margin:0;color:#d2e5ed;font-size:13px}.settings-hero-icon{display:grid;place-items:center;width:58px;height:58px;border-radius:17px;background:#ffffff18;font-size:27px}
+.settings-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:16px;align-items:start}.settings-card-modern{background:#fff;border:1px solid #e4edf3;border-radius:17px;padding:21px;box-shadow:0 7px 22px #19365708}.settings-card-head{display:flex;align-items:center;gap:12px;margin-bottom:17px}.settings-card-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:#e7f7fa;color:#07869a;font-size:20px}.settings-card-head h2{margin:0 0 3px}.settings-card-head p{margin:0;color:#8797a8;font-size:12px}.settings-field{margin:12px 0}.settings-field label{display:block;margin-bottom:6px;font-size:12px;font-weight:750;color:#40546a}.settings-field input{width:100%;max-width:100%;padding:11px 12px;border:1px solid #d7e2eb;border-radius:10px;background:#fbfdff;outline:none}.settings-field input:focus{border-color:#20b9d0;box-shadow:0 0 0 3px #20b9d01a}.settings-side-note{padding:18px;border-radius:16px;background:#f7fafc;border:1px solid #e6edf2}.settings-side-note b{display:block;margin-bottom:6px}.settings-side-note p{margin:0;color:#8191a2;font-size:12px;line-height:1.6}
+.response-form-group{border:1px solid #e3ebf2;border-radius:15px;background:#fff;margin:12px 0;overflow:hidden;box-shadow:0 5px 17px #19365707}.response-form-group>summary{display:flex;align-items:center;gap:12px;list-style:none;padding:15px 17px;cursor:pointer;background:linear-gradient(90deg,#fbfdff,#f5fafc)}.response-form-group>summary::-webkit-details-marker{display:none}.response-form-icon{display:grid;place-items:center;flex:0 0 38px;height:38px;border-radius:12px;background:#e6f6f9;color:#07869a;font-size:17px}.response-form-meta{display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}.response-form-meta b{font-size:13px;overflow-wrap:anywhere}.response-form-meta small{font-size:10px;color:#8797a8}.response-form-count{padding:5px 9px;border-radius:20px;background:#eaf3ff;color:#2875c7;font-size:10px;font-weight:750;white-space:nowrap}.response-form-body{padding:5px 14px 14px;border-top:1px solid #edf1f5}.response-form-group .response-item{margin:9px 0;border-radius:11px}
+.respondent-shell{max-width:820px;margin:4px auto 35px}.respondent-topline{height:7px;border-radius:20px 20px 0 0;background:var(--form-accent,#20c5df)}.respondent-title-card{position:relative;overflow:hidden;border:1px solid #e4ebf1;border-top:0;border-radius:0 0 16px 16px;background:#fff;padding:27px 29px;margin-bottom:14px;box-shadow:0 7px 22px #19365708}.respondent-title-card h1{font-size:27px;line-height:1.25;margin:0 0 9px;color:#18324b}.respondent-title-card p{margin:0;color:#718397;white-space:pre-wrap}.respondent-header-image{display:block;width:100%;max-height:190px;object-fit:cover;border-radius:12px;margin-bottom:18px}.respondent-progress{height:6px;border-radius:20px;background:#e9eff4;overflow:hidden;margin:0 0 14px}.respondent-progress>span{display:block;height:100%;width:0;background:var(--form-accent,#20c5df);transition:width .2s}.respondent-question{background:#fff;border:1px solid #e4ebf1;border-radius:15px;padding:20px 22px;margin:12px 0;box-shadow:0 5px 18px #19365706}.respondent-question:focus-within{border-color:#b9dce7;box-shadow:0 8px 24px #16879b10}.respondent-question-title{display:block;font-size:14px;font-weight:750;line-height:1.5;color:#263e55;margin-bottom:12px}.respondent-required{color:#d94d4d;margin-left:3px}.respondent-answer input:not([type=radio]):not([type=checkbox]),.respondent-answer textarea,.respondent-answer select{width:100%;max-width:100%;padding:11px 12px;border:1px solid #d8e2ea;border-radius:10px;background:#fcfdff;color:#263e55;outline:none}.respondent-answer textarea{min-height:105px;resize:vertical}.respondent-answer input:focus,.respondent-answer textarea:focus,.respondent-answer select:focus{border-color:var(--form-accent,#20c5df);box-shadow:0 0 0 3px #20c5df20}.respondent-choice{display:flex;align-items:center;gap:10px;padding:9px 11px;margin:6px 0;border:1px solid #edf1f5;border-radius:10px;background:#fcfdff;font-size:13px;color:#42576d;cursor:pointer}.respondent-choice:has(input:checked){border-color:#a9dce5;background:#f0fafb}.respondent-choice input{accent-color:var(--form-accent,#20c5df);width:16px;height:16px}.respondent-submit-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 2px}.respondent-submit{min-width:145px;padding:12px 19px;border-radius:11px;background:var(--form-accent,#20c5df);color:#fff;font-weight:750}.respondent-submit:disabled{opacity:.6;cursor:wait}.respondent-footnote{font-size:11px;color:#91a0ae}.respondent-success{max-width:650px;margin:30px auto;padding:32px;text-align:center;border:1px solid #d9eee6;border-radius:18px;background:#fff;box-shadow:0 10px 30px #1936570a}.respondent-success-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:50%;margin:0 auto 12px;background:#e7f8ef;color:#168b70;font-size:25px}.respondent-success h2{margin:0 0 7px}.respondent-success p{margin:0;color:#8091a1;font-size:13px}
+@media(max-width:760px){.settings-layout{grid-template-columns:1fr}.settings-page-hero{padding:21px}.settings-page-hero h1{font-size:23px}.respondent-title-card{padding:22px 18px}.respondent-title-card h1{font-size:23px}.respondent-question{padding:17px 15px}.response-form-group>summary{padding:12px}.response-form-count{font-size:9px}}
+
+/* Public form polish: cleaner, responsive respondent experience */
+.public-forms-panel{width:min(900px,100%);max-height:94vh;border:1px solid #dce7ee;border-radius:22px;overflow:hidden;background:#f4f8fb;box-shadow:0 28px 90px #0005}.public-forms-header{align-items:center;padding:19px 23px;background:#fff}.public-forms-header h2{font-size:22px;letter-spacing:-.35px;color:#173653}.public-forms-content{max-height:calc(94vh - 95px);overflow:auto;padding:22px;background:linear-gradient(180deg,#f4f8fb,#eef4f8)}.public-form-card{padding:17px 18px;border:1px solid #e1eaf0;border-radius:15px;background:#fff;box-shadow:0 5px 18px #17365308;transition:transform .18s,box-shadow .18s}.public-form-card:hover{transform:translateY(-2px);box-shadow:0 10px 25px #17365312}.public-form-card b{font-size:14px;color:#1c3b56}.public-form-card .btn{border-radius:10px;padding:10px 15px}
+.respond-form-shell{width:min(780px,100%);margin:12px auto 28px}.respond-form-banner{padding:31px 31px 25px;border-radius:19px;border-top-width:9px;box-shadow:0 10px 30px #1936570a}.respond-form-banner h2{letter-spacing:-.55px}.respond-form-meta span{padding:7px 11px;border:1px solid #e4edf2;background:#f6fafc}.respond-instruction{padding:17px 6px 9px;font-size:11px}.respond-question{padding:22px 23px;margin:12px 0;border-radius:16px;box-shadow:0 6px 20px #19365707}.respond-question-title{gap:12px;margin-bottom:16px}.respond-number{width:30px;height:30px;flex-basis:30px;border-radius:10px;font-size:12px}.respond-question-title label{font-size:14px}.respond-input,.respond-textarea{max-width:100%;padding:12px 13px;border-radius:10px;font-size:13px;background:#fcfdff}.respond-choice{width:100%;padding:11px 13px;border-radius:11px;background:#fff}.respond-choice span{font-size:13px}.likert-options{gap:10px}.likert-option span{width:42px;height:42px;border-radius:12px}.respond-progress{padding:12px 14px;border:1px solid #e3ebf1;border-radius:12px;background:#fff}.respond-progress>div:first-child{display:flex;justify-content:space-between;margin-bottom:8px;color:#6f8396;font-size:11px}.respond-progress-track{height:7px;border-radius:20px;background:#edf2f6;overflow:hidden}.respond-progress-track i{display:block;height:100%;width:0;border-radius:20px;background:var(--form-primary,#159caf);transition:width .2s}.respond-submit-row{align-items:center;margin-top:18px}.respond-submit-row .btn{padding:12px 20px;border-radius:11px;font-weight:750}.respond-privacy{margin:15px 0;color:#91a0ae}.respond-success{padding:48px 24px;border-radius:20px;box-shadow:0 10px 30px #1936570a}.form-settings-panel:not(.hidden){border-radius:20px;box-shadow:0 0 0 100vmax #08182dcc,0 28px 100px #06172e75}.settings-group{padding:18px 0}.settings-group h3{font-size:14px;letter-spacing:-.1px}.setting-switch{padding:12px 0}.setting-row{padding:12px 0}
+@media(max-width:600px){.public-forms-modal{padding:7px}.public-forms-panel{border-radius:16px}.public-forms-content{padding:13px}.respond-form-shell{margin:5px auto 20px}.respond-form-banner{padding:23px 18px 19px;border-radius:15px}.respond-form-banner h2{font-size:21px}.respond-question{padding:17px 14px;border-radius:13px}.respond-question-title label{font-size:13px}.respond-submit-row{flex-direction:column-reverse}.respond-submit-row .btn{width:100%;min-height:45px}.respond-choice{width:100%}}
 </style></head><body>
 <section id="login" class="login"><div class="loginbox"><div class="hero"><div class="brand">Furqon<span>HUB</span></div><h1>Selamat Datang</h1><p>Tempat dokumen, data, formulir, dan aktivitas penelitian Faqih Ali Akbar Furqoni.</p><span class="pill">RESEARCH MANAGEMENT SYSTEM</span><div class="orb"></div><div class="person"><div class="head"></div><div class="torso"></div></div></div><div class="loginform"><div class="brand" style="color:#102747">Furqon<span>HUB</span></div><h2>Selamat datang</h2><p class="muted">Masuk ke ruang kerja penelitian Anda.</p><div id="loginMsg"></div><form id="loginForm"><div class="field"><label>USERNAME</label><input id="lu" required></div><div class="field"><label>PASSWORD</label><input id="lp" type="password" required></div><button class="btn cyan" style="width:100%">Login</button></form></div></div><button type="button" class="btn public-forms-trigger" id="openPublicForms">▤ FORM PENELITIAN</button></section>
 <div class="public-forms-modal hidden" id="publicFormsModal" role="dialog" aria-modal="true" aria-labelledby="publicFormsTitle"><div class="public-forms-backdrop" id="closePublicFormsBackdrop"></div><section class="public-forms-panel"><header class="public-forms-header"><div><span class="section-eyebrow">FURQONHUB</span><h2 id="publicFormsTitle">Form Penelitian</h2><p>Pilih formulir yang tersedia untuk diisi.</p></div><button id="closePublicForms" class="modal-close">×</button></header><div id="publicFormsContent" class="public-forms-content"></div></section></div>
 <div id="app" class="app hidden"><aside class="side"><div class="brand">Furqon<span>HUB</span></div><nav class="nav"><div class="navlabel">Workspace</div><button data-p="dashboard" class="active">▦ Dashboard</button><button data-p="files">▤ Penyimpanan File</button><button data-p="spss">◉ SPSS Workspace</button><div class="navlabel">Research</div><button data-p="builder">☷ Buat Form Baru</button><button data-p="responses">▥ Jawaban Responden</button><div class="navlabel">Administration</div><button data-p="users" id="userNav">♙ Manajemen Akun</button><button data-p="settings">⚙ Pengaturan</button></nav></aside><section class="main"><header class="top"><b id="title">Dashboard</b><div class="row"><span id="who" class="muted"></span><button class="btn light small" id="logout">Keluar</button></div></header><main id="view" class="content"></main></section></div>
+<!-- Pembaca dokumen untuk fitur import pertanyaan -->
+<script src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>if(window.pdfjsLib)pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";</script>
 <!-- Firebase SDK (compat) -->
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
@@ -538,57 +612,86 @@ function openPublicForms(){
 }
 function renderPublicForm(id){
   const f=db.forms.find(x=>x.id===id),content=$('#publicFormsContent');if(!f)return;
-  const now=new Date();
+  const now=new Date(),settings={collectEmail:'no',sendCopy:'off',allowEdit:false,limitOne:false,progress:false,shuffle:false,confirmation:'Jawaban Anda telah dicatat.',another:true,summary:false,quizRelease:'immediate',quizShowMissed:true,quizShowCorrect:true,quizShowPoints:true,quizDefaultPoints:0,...(f.settings||{})};
   if(!f.active||(f.start&&now<new Date(f.start))||(f.end&&now>new Date(f.end))){
     content.innerHTML='<div class="form-empty"><b>Formulir tidak tersedia</b><small>Periode pengisian formulir telah berakhir atau belum dibuka.</small><button class="btn light" id="publicBack">Kembali</button></div>';
     $('#publicBack').onclick=openPublicForms;return;
   }
+  let order=(f.questions||[]).map((q,i)=>i);if(settings.shuffle)order.sort(()=>Math.random()-.5);
   const questionMarkup=(q,i)=>{
-    const req=q.required?'required':'';
-    let control='';
-    if(q.type==='paragraph') control=`<textarea class="respond-textarea" name="q${i}" placeholder="Ketik jawaban Anda..." ${req}></textarea>`;
-    else if(q.type==='likert') control=`<div class="likert-options">${[1,2,3,4,5].map(n=>`<label class="likert-option"><input type="radio" name="q${i}" value="${n}" ${req}><span>${n}</span></label>`).join('')}</div>`;
-    else if(q.type==='radio'||q.type==='checkbox') control=`<div class="respond-choices">${(q.options||[]).map((o,j)=>`<label class="respond-choice"><input type="${q.type}" name="q${i}${q.type==='checkbox'?'[]':''}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join('')}</div>`;
-    else control=`<input class="respond-input" name="q${i}" placeholder="Ketik jawaban Anda..." ${req}>`;
-    return `<section class="respond-question"><div class="respond-question-title"><span class="respond-number">${i+1}</span><label>${esc(q.text)}${q.required?'<em>*</em>':''}</label></div>${control}<small class="respond-error hidden" data-error="${i}">Pertanyaan ini wajib dijawab.</small></section>`;
+    const req=q.required?'required':'',name=`q${i}`;let control='';const type=q.type==='text'?'short':q.type==='likert'?'scale':q.type;
+    if(type==='paragraph')control=`<textarea class="respond-textarea" name="${name}" placeholder="Ketik jawaban Anda..." ${req}></textarea>`;
+    else if(type==='radio'||type==='checkbox')control=`<div class="respond-choices">${(q.options||[]).map(o=>`<label class="respond-choice"><input type="${type}" name="${name}${type==='checkbox'?'[]':''}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join('')}</div>`;
+    else if(type==='dropdown')control=`<select class="respond-input" name="${name}" ${req}><option value="">Pilih satu jawaban</option>${(q.options||[]).map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`;
+    else if(type==='scale')control=`<div class="scale-respond"><div class="scale-labels"><span>${esc(q.minLabel||'')}</span><span>${esc(q.maxLabel||'')}</span></div><div class="likert-options">${Array.from({length:Math.min(21,Number(q.max??5)-Number(q.min??1)+1)},(_,k)=>Number(q.min??1)+k).map(n=>`<label class="likert-option"><input type="radio" name="${name}" value="${n}"><span>${n}</span></label>`).join('')}</div></div>`;
+    else if(type==='rating')control=`<div class="rating-options">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="${name}" value="${n}"><span>★</span></label>`).join('')}</div>`;
+    else if(type==='file')control=`<input class="respond-input" type="file" name="${name}" accept="*/*" ${req}><small class="likert-hint">Pilih file dari perangkat Anda.</small>`;
+    else if(type==='date'||type==='time')control=`<input class="respond-input" type="${type}" name="${name}" ${req}>`;
+    else control=`<input class="respond-input" type="text" name="${name}" placeholder="Ketik jawaban Anda..." ${req}>`;
+    return `<section class="respond-question" data-question-index="${i}" style="font-family:${esc(theme.questionFont)},Arial,sans-serif;font-size:${Math.max(10,Math.min(24,Number(theme.questionSize)||13))}px"><div class="respond-question-title"><span class="respond-number" style="background:color-mix(in srgb,${themePrimary} 12%,white);color:${themePrimary}">${i+1}</span><label>${esc(q.text)}${q.required?'<em>*</em>':''}</label></div>${control}<small class="respond-error hidden" data-error="${i}">Pertanyaan ini wajib dijawab.</small></section>`;
   };
-  content.innerHTML=`<button class="btn light small respond-back" id="publicBack">← Daftar formulir</button><div class="respond-form-shell"><div class="respond-form-banner"><span class="section-eyebrow">FORM PENELITIAN</span><h2>${esc(f.title)}</h2><p>${esc(f.description||'Silakan isi seluruh pertanyaan yang sesuai dengan kondisi Anda.')}</p><div class="respond-form-meta"><span>☷ ${(f.questions||[]).length} pertanyaan</span><span>◷ ${f.end?'Ditutup '+new Date(f.end).toLocaleString('id-ID'):'Jadwal terbuka'}</span></div></div><form id="publicResponse" novalidate><div class="respond-instruction">* Menandakan pertanyaan wajib diisi</div>${(f.questions||[]).map(questionMarkup).join('')}<div class="respond-submit-row"><button type="button" class="btn light" id="respondReset">Kosongkan jawaban</button><button class="btn cyan respond-submit" id="respondSubmit">Kirim jawaban <span>→</span></button></div><p class="respond-privacy">Jawaban Anda akan dikirim dan disimpan untuk keperluan penelitian ini.</p><div id="respondStatus" class="respond-status hidden" role="status"></div></form></div>`;
+  const theme={headerFont:'Roboto',headerSize:24,questionFont:'Roboto',questionSize:13,textFont:'Roboto',textSize:12,primary:'#159caf',background:'#f3f4f6',headerImage:'',...(settings.theme||{})};const themePrimary=/^#[0-9a-f]{6}$/i.test(theme.primary)?theme.primary:'#159caf',themeBg=/^#[0-9a-f]{6}$/i.test(theme.background)?theme.background:'#f3f4f6';
+  content.innerHTML=`<button class="btn light small respond-back" id="publicBack">← Daftar formulir</button><div class="respond-form-shell" style="--form-primary:${themePrimary};font-family:${esc(theme.textFont)},Arial,sans-serif;font-size:${Math.max(9,Math.min(20,Number(theme.textSize)||12))}px"><div class="respond-form-banner" style="border-top-color:${themePrimary};background-color:${themeBg};${theme.headerImage?`background-image:linear-gradient(#ffffffd9,#ffffffd9),url('${theme.headerImage}');background-size:cover;background-position:center;`:''}"><span class="section-eyebrow" style="color:${themePrimary}">FORM PENELITIAN</span><h2 style="font-family:${esc(theme.headerFont)},Arial,sans-serif;font-size:${Math.max(18,Math.min(48,Number(theme.headerSize)||24))}px">${esc(f.title)}</h2><p>${esc(f.description||'Silakan isi seluruh pertanyaan yang sesuai dengan kondisi Anda.')}</p><div class="respond-form-meta"><span>☷ ${(f.questions||[]).length} pertanyaan</span><span>◷ ${f.end?'Ditutup '+new Date(f.end).toLocaleString('id-ID'):'Jadwal terbuka'}</span></div></div><form id="publicResponse" novalidate>
+  ${settings.progress?'<div class="respond-progress"><div><span>Progres pengisian</span><b id="progressText">0%</b></div><div class="respond-progress-track"><i id="progressBar"></i></div></div>':''}
+  ${settings.collectEmail!=='no'?'<section class="respond-question"><div class="respond-question-title"><label>Alamat email <em>*</em></label></div><input class="respond-input" type="email" name="respondentEmail" required placeholder="nama@email.com"></section>':''}
+  <div class="respond-instruction">* Menandakan pertanyaan wajib diisi</div>${order.map(i=>questionMarkup(f.questions[i],i)).join('')}<div class="respond-submit-row"><button type="button" class="btn light" id="respondReset">Kosongkan jawaban</button><button class="btn cyan respond-submit" id="respondSubmit">Kirim jawaban <span>→</span></button></div><p class="respond-privacy">Jawaban Anda akan dikirim dan disimpan untuk keperluan penelitian ini.</p><div id="respondStatus" class="respond-status hidden" role="status"></div></form></div>`;
   $('#publicBack').onclick=openPublicForms;
-  $('#respondReset').onclick=()=>{if(confirm('Kosongkan semua jawaban yang sudah diisi?')){$('#publicResponse').reset();$$('.respond-error').forEach(el=>el.classList.add('hidden'));$$('.respond-question').forEach(el=>el.classList.remove('has-error'))}};
-  $('#publicResponse').onsubmit=async e=>{
-    e.preventDefault();
-    const formEl=e.currentTarget,submit=$('#respondSubmit'),status=$('#respondStatus');
-    const answers=[];let valid=true;
-    (f.questions||[]).forEach((q,i)=>{
-      let answer='';
-      if(q.type==='checkbox') answer=[...formEl.querySelectorAll(`[name="q${i}[]"]:checked`)].map(x=>x.value);
-      else if(q.type==='radio'||q.type==='likert') answer=formEl.querySelector(`[name="q${i}"]:checked`)?.value||'';
-      else answer=formEl.querySelector(`[name="q${i}"]`)?.value?.trim()||'';
-      const answered=Array.isArray(answer)?answer.length>0:String(answer).trim()!=='';
+  const formEl=$('#publicResponse');
+  const updateProgress=()=>{if(!settings.progress)return;const total=(f.questions||[]).filter(q=>q.required).length||1;let done=0;(f.questions||[]).forEach((q,i)=>{if(!q.required)return;const els=formEl.querySelectorAll(`[name="q${i}"],[name="q${i}[]"]`);if([...els].some(el=>el.type==='checkbox'||el.type==='radio'?el.checked:el.value))done++});const pct=Math.round(done/total*100);$('#progressText').textContent=pct+'%';$('#progressBar').style.width=pct+'%'};
+  formEl.oninput=updateProgress;formEl.onchange=updateProgress;
+  $('#respondReset').onclick=()=>{if(confirm('Kosongkan semua jawaban yang sudah diisi?')){formEl.reset();$$('.respond-error').forEach(el=>el.classList.add('hidden'));$$('.respond-question').forEach(el=>el.classList.remove('has-error'));updateProgress()}};
+  formEl.onsubmit=async e=>{
+    e.preventDefault();const submit=$('#respondSubmit'),status=$('#respondStatus'),answers=[];let valid=true;
+    const email=formEl.querySelector('[name="respondentEmail"]')?.value.trim()||'';
+    if(settings.collectEmail!=='no'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Masukkan alamat email yang valid.');return}
+    if(settings.limitOne){
+      const already=(db.responses||[]).some(r=>r.formId===f.id&&((email&&r.respondentEmail===email)||(!email&&r.browserToken===localStorage.getItem('fh-token'))));
+      if(already){status.textContent='Batas pengiriman satu jawaban untuk formulir ini telah tercapai.';status.className='respond-status error';return}
+    }
+    for(const [i,q] of (f.questions||[]).entries()){
+      const type=q.type==='text'?'short':q.type==='likert'?'scale':q.type;
+      let answer='';const field=formEl.querySelector(`[name="q${i}"],[name="q${i}[]"]`);
+      if(type==='checkbox')answer=[...formEl.querySelectorAll(`[name="q${i}[]"]:checked`)].map(x=>x.value);
+      else if(type==='radio'||type==='scale'||type==='rating')answer=formEl.querySelector(`[name="q${i}"]:checked`)?.value||'';
+      else if(type==='file'){
+        const file=field?.files?.[0];
+        if(file&&file.size>5*1024*1024){status.textContent='Ukuran file maksimal 5 MB.';status.className='respond-status error';return}
+        if(file)answer=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve({name:file.name,type:file.type,size:file.size,dataUrl:reader.result});reader.onerror=reject;reader.readAsDataURL(file)});
+      }else answer=field?.value?.trim()||'';
+      const answered=Array.isArray(answer)?answer.length>0:(typeof answer==='object'&&answer!==null?true:String(answer).trim()!=='');
       const item=formEl.querySelector(`[data-error="${i}"]`),card=item?.closest('.respond-question');
-      if(q.required&&!answered){valid=false;item?.classList.remove('hidden');card?.classList.add('has-error')}
-      else{item?.classList.add('hidden');card?.classList.remove('has-error')}
+      if(q.required&&!answered){valid=false;item?.classList.remove('hidden');card?.classList.add('has-error')}else{item?.classList.add('hidden');card?.classList.remove('has-error')}
       answers.push({question:q.text,answer});
-    });
+    }
     if(!valid){formEl.querySelector('.has-error')?.scrollIntoView({behavior:'smooth',block:'center'});return}
     const latest=db.forms.find(x=>x.id===id),checkTime=new Date();
-    if(!latest||!latest.active||(latest.start&&checkTime<new Date(latest.start))||(latest.end&&checkTime>new Date(latest.end))){
-      status.textContent='Formulir sudah tidak menerima jawaban.';status.className='respond-status error';return;
-    }
-    submit.disabled=true;submit.innerHTML='<span class="respond-mini-spinner"></span> Menyimpan jawaban...';status.className='respond-status hidden';
-    const response={id:uid(),formId:f.id,formTitle:f.title,respondent:'Publik',submittedAt:new Date().toISOString(),answers};
+    if(!latest||!latest.active||(latest.start&&checkTime<new Date(latest.start))||(latest.end&&checkTime>new Date(latest.end))){status.textContent='Formulir sudah tidak menerima jawaban.';status.className='respond-status error';return}
+    let score=0,maxScore=0;
+    if(settings.quiz)(f.questions||[]).forEach((q,i)=>{const a=answers[i]?.answer,pts=Number(q.points??settings.quizDefaultPoints??0);maxScore+=pts;if(['radio','dropdown'].includes(q.type)&&q.correctAnswer&&String(a)===String(q.correctAnswer))score+=pts;if(q.type==='checkbox'&&q.correctAnswers?.length&&Array.isArray(a)&&q.correctAnswers.length===a.length&&q.correctAnswers.every(x=>a.includes(x)))score+=pts});
+    submit.disabled=true;submit.textContent='Menyimpan jawaban...';status.className='respond-status hidden';
+    const token=localStorage.getItem('fh-token')||uid();localStorage.setItem('fh-token',token);
+    const response={id:uid(),formId:f.id,formTitle:f.title,respondent:'Publik',respondentEmail:email,copyRequested:settings.sendCopy!=='off'&&!!email,submittedAt:new Date().toISOString(),answers,browserToken:token,...(settings.quiz?{score,maxScore,quizRelease:settings.quizRelease||'immediate'}:{})};
     try{
-      db.responses=db.responses||[];
-      db.responses.push(response);
-      await save();
-      log('Jawaban publik masuk: '+f.title);
-      await save();
-      content.innerHTML=`<div class="respond-success"><div class="respond-success-icon">✓</div><h2>Jawaban berhasil dikirim</h2><p>Terima kasih telah berpartisipasi dalam penelitian <b>${esc(f.title)}</b>.</p><small>Jawaban Anda telah tersimpan.</small><button class="btn cyan" id="respondDone">Kembali ke daftar formulir</button></div>`;
-      $('#respondDone').onclick=openPublicForms;
+      db.responses=db.responses||[];db.responses.push(response);await save();log('Jawaban publik masuk: '+f.title);
+      const summary=settings.summary?`<p>Jumlah respons yang telah diterima: <b>${db.responses.filter(r=>r.formId===f.id).length}</b>.</p>`:'';
+      const another=settings.another?'<button class="btn light" id="respondAgain">Isi formulir lain</button>':'';
+      let quizReview='';
+      if(settings.quiz&&settings.quizRelease!=='manual'){
+        const review=(f.questions||[]).map((q,i)=>{
+          let correct=null,expected='';
+          if(['radio','dropdown'].includes(q.type)&&q.correctAnswer){correct=String(answers[i]?.answer??'')===String(q.correctAnswer);expected=q.correctAnswer}
+          else if(q.type==='checkbox'&&q.correctAnswers?.length){const got=answers[i]?.answer||[];correct=got.length===q.correctAnswers.length&&q.correctAnswers.every(v=>got.includes(v));expected=q.correctAnswers.join(', ')}
+          if(correct===null)return '';
+          if(correct&&settings.quizShowMissed)return '';
+          const answerText=Array.isArray(answers[i]?.answer)?answers[i].answer.join(', '):(answers[i]?.answer||'Tidak dijawab');
+          return `<div class="quiz-review-item"><b>${i+1}. ${esc(q.text)}</b><small>Jawaban Anda: ${esc(answerText)}</small>${settings.quizShowCorrect?`<small>Jawaban benar: ${esc(expected)}</small>`:''}${settings.quizShowPoints?`<small>Poin: ${correct?Number(q.points??settings.quizDefaultPoints??0):0} / ${Number(q.points??settings.quizDefaultPoints??0)}</small>`:''}</div>`;
+        }).join('');
+        if(review)quizReview=`<section class="quiz-review"><h3>Tinjauan jawaban</h3>${review}</section>`;
+      }
+      content.innerHTML=`<div class="respond-success"><div class="respond-success-icon">✓</div><h2>Jawaban berhasil dikirim</h2><p>${esc(settings.confirmation)}</p>${settings.quiz?(settings.quizRelease==='manual'?'<p>Jawaban Anda telah diterima. Nilai akan ditampilkan setelah peninjauan manual.</p>':`<p>${settings.quizShowPoints===false?'':'Skor otomatis: <b>'+score+' dari '+maxScore+'</b>'}</p>`):''}${quizReview}${summary}${another}</div>`;
+      $('#respondAgain')?.addEventListener('click',openPublicForms);
     }catch(error){
-      db.responses=(db.responses||[]).filter(x=>x.id!==response.id);
-      submit.disabled=false;submit.innerHTML='Kirim jawaban <span>→</span>';
-      status.textContent='Jawaban belum berhasil disimpan ke server. Periksa koneksi internet atau aturan akses Firebase, lalu coba kirim kembali.';status.className='respond-status error';
+      db.responses=(db.responses||[]).filter(x=>x.id!==response.id);submit.disabled=false;submit.textContent='Kirim jawaban';status.textContent='Jawaban belum berhasil disimpan ke server. Periksa koneksi internet atau aturan akses Firebase, lalu coba kirim kembali.';status.className='respond-status error';
     }
   };
 }
@@ -916,62 +1019,311 @@ function spss(){
 function builder(){
   const formList=()=>db.forms.map(f=>{
     let now=new Date(),st=f.start?new Date(f.start):null,en=f.end?new Date(f.end):null,open=!!f.active&&(!st||now>=st)&&(!en||now<=en);
-    return `<div class="saved-form-row"><div class="saved-form-main"><b>${esc(f.title)}</b><small>${esc(f.description||'Tanpa deskripsi')}</small><span class="saved-form-date">Mulai: ${f.start?new Date(f.start).toLocaleString('id-ID'):'—'} · Tutup: ${f.end?new Date(f.end).toLocaleString('id-ID'):'—'}</span></div><span class="pill">${open?'Sedang dibuka':f.active?'Di luar jadwal':'Nonaktif'}</span><div class="actions"><button class="btn ${f.active?'danger':'cyan'} small" data-toggleform="${f.id}">${f.active?'Nonaktifkan':'Aktifkan'}</button><button class="btn danger small" data-fdel="${f.id}">Hapus</button></div></div>`;
+    return `<div class="saved-form-row"><div class="saved-form-main"><b>${esc(f.title)}</b><small>${esc(f.description||'Tanpa deskripsi')}</small><span class="saved-form-date">Mulai: ${f.start?new Date(f.start).toLocaleString('id-ID'):'—'} · Tutup: ${f.end?new Date(f.end).toLocaleString('id-ID'):'—'}</span></div><span class="pill">${open?'Sedang dibuka':f.active?'Di luar jadwal':'Nonaktif'}</span><div class="actions"><button class="btn light small" data-fedit="${f.id}">Edit</button><button class="btn ${f.active?'danger':'cyan'} small" data-toggleform="${f.id}">${f.active?'Nonaktifkan':'Aktifkan'}</button><button class="btn danger small" data-fdel="${f.id}">Hapus</button></div></div>`;
   }).join('')||'<div class="form-empty"><span>☷</span><b>Belum ada formulir</b><small>Mulai dengan membuat formulir penelitian pertama Anda.</small></div>';
   $('#view').innerHTML=`<section class="form-builder-landing"><div class="form-builder-intro"><span class="section-eyebrow">FORM BUILDER</span><h1>Kelola Formulir</h1><p>Susun formulir penelitian dengan editor visual bergaya Google Forms.</p></div><button class="btn form-create-cta" id="openFormModal"><span>＋</span><span><b>Buat Form Baru</b><small>Mulai susun struktur formulir</small></span><i>↗</i></button></section><section class="card builder-list-card"><div class="builder-section-title"><span class="builder-step">01</span><div><h2>Formulir tersimpan</h2><p>Daftar formulir yang sudah dipublikasikan.</p></div><span class="form-total">${db.forms.length} formulir</span></div><div class="saved-form-list">${formList()}</div></section>
-  <div class="form-modal hidden" id="formModal" role="dialog" aria-modal="true"><div class="form-modal-backdrop" id="closeFormBackdrop"></div><section class="form-modal-panel"><header class="form-modal-header"><div><span class="section-eyebrow">FORM EDITOR</span><h2>Buat Formulir Baru</h2><p>Perubahan hanya disimpan setelah formulir dipublikasikan.</p></div><button class="modal-close" id="closeFormModal" aria-label="Tutup">×</button></header><div class="form-modal-body"><div class="google-form-title-card"><div class="form-title-accent"></div><input id="ft" placeholder="Judul formulir"><textarea id="fd" placeholder="Deskripsi formulir"></textarea></div><div class="google-form-schedule card"><b>Jadwal pengisian</b><div class="grid"><div class="field"><label>Mulai</label><input id="formStart" type="datetime-local" required></div><div class="field"><label>Penutupan</label><input id="formEnd" type="datetime-local" required></div></div></div><div class="google-question-list" id="qs"></div><button class="btn add-question-google" id="addq">＋ Tambahkan pertanyaan</button><div class="builder-actions"><button class="btn light" id="cancelForm">Batal</button><button class="btn cyan" id="savef">Publikasikan formulir</button></div></div></section></div>`;
+  <div class="form-modal hidden" id="formModal" role="dialog" aria-modal="true"><div class="form-modal-backdrop" id="closeFormBackdrop"></div><section class="form-modal-panel"><header class="form-modal-header"><div><span class="section-eyebrow">FORM EDITOR</span><h2 id="formEditorTitle">Buat Formulir Baru</h2><p>Atur pertanyaan, impor dokumen, dan sesuaikan pengaturan formulir.</p></div><button class="modal-close" id="closeFormModal" aria-label="Tutup">×</button></header><div class="form-modal-body">
+  <div class="google-form-title-card"><div class="form-title-accent"></div><input id="ft" placeholder="Judul formulir"><textarea id="fd" placeholder="Deskripsi formulir"></textarea></div>
+  <div class="google-form-schedule card"><b>Jadwal pengisian</b><div class="grid"><div class="field"><label>Mulai</label><input id="formStart" type="datetime-local" required></div><div class="field"><label>Penutupan</label><input id="formEnd" type="datetime-local" required></div></div></div>
+  <div class="form-tools-row"><button class="btn light" id="openFormSettings" type="button">⚙ Pengaturan formulir</button><button class="btn light" id="previewForm" type="button">◉ Pratinjau</button><label class="btn light import-trigger" for="questionImport">⇧ Import pertanyaan Word/PDF</label><input id="questionImport" type="file" accept=".docx,.pdf" hidden></div>
+  <div id="importStatus" class="notice hidden" role="status"></div>
+  <div id="formSettingsPanel" class="card form-settings-panel hidden">
+    <div class="between"><div><h2>Setelan formulir</h2><p class="muted">Pengaturan ini hanya berlaku untuk formulir yang sedang dibuat.</p></div><button class="modal-close" id="closeFormSettings" type="button" aria-label="Tutup pengaturan" title="Tutup">×</button></div>
+    <section class="settings-group"><h3>Jadikan sebagai kuis</h3><p>Menetapkan jawaban benar, poin, serta penilaian otomatis.</p><label class="setting-switch"><span>Jadikan ini sebagai kuis</span><input id="settingQuiz" type="checkbox"><i></i></label>
+      <div id="quizExtraSettings" class="quiz-extra-settings hidden">
+        <div class="settings-subheading">RILIS NILAI</div>
+        <label class="setting-radio-row"><input type="radio" name="quizRelease" value="immediate" checked><span><b>Langsung setelah setiap pengiriman</b></span></label>
+        <label class="setting-radio-row"><input type="radio" name="quizRelease" value="manual"><span><b>Nanti, setelah peninjauan manual</b><small>Nilai tidak langsung ditampilkan kepada responden.</small></span></label>
+        <div class="settings-subheading">SETELAN RESPONDEN</div>
+        <label class="setting-switch"><span><b>Pertanyaan tak terjawab</b><small>Responden dapat melihat pertanyaan yang tidak dijawab dengan benar.</small></span><input id="quizShowMissed" type="checkbox" checked><i></i></label>
+        <label class="setting-switch"><span><b>Jawaban yang benar</b><small>Responden dapat melihat jawaban yang benar setelah nilai dirilis.</small></span><input id="quizShowCorrect" type="checkbox" checked><i></i></label>
+        <label class="setting-switch"><span><b>Nilai poin</b><small>Responden dapat melihat poin total dan poin yang diterima untuk setiap jawaban.</small></span><input id="quizShowPoints" type="checkbox" checked><i></i></label>
+        <div class="settings-subheading">DEFAULT KUIS GLOBAL</div>
+        <div class="quiz-score-default"><span><b>Nilai poin pertanyaan default</b><small class="quiz-help">Nilai poin untuk setiap pertanyaan baru</small></span><div class="row"><input id="quizDefaultPoints" type="number" min="0" step="1" value="0"><span>poin</span></div></div>
+      </div>
+    </section>
+    <section class="settings-group"><h3>Jawaban</h3><p>Mengelola cara respons dikumpulkan dan dilindungi.</p>
+      <div class="setting-row"><div><b>Kumpulkan alamat email</b><small>Responden diminta mengisi alamat email.</small></div><select id="settingEmail"><option value="no">Jangan kumpulkan</option><option value="responder">Diisi oleh responden</option></select></div>
+      <div class="setting-row"><div><b>Mengirim salinan jawaban responden</b><small>Opsi pengiriman salinan setelah jawaban dikirim.</small></div><select id="settingCopy"><option value="off">Nonaktif</option><option value="request">Atas permintaan responden</option><option value="always">Selalu</option></select></div>
+      <label class="setting-switch"><span>Izinkan pengeditan respons</span><input id="settingEdit" type="checkbox"><i></i></label>
+      <label class="setting-switch"><span>Batasi ke 1 jawaban</span><input id="settingLimit" type="checkbox"><i></i></label>
+    </section>
+    <section class="settings-group"><h3>Presentasi</h3><p>Mengelola cara formulir dan respons dipresentasikan.</p>
+      <label class="setting-switch"><span>Tampilkan status progres</span><input id="settingProgress" type="checkbox"><i></i></label>
+      <label class="setting-switch"><span>Acak urutan pertanyaan</span><input id="settingShuffle" type="checkbox"><i></i></label>
+      <div class="settings-subheading">SETELAH PENGIRIMAN FORMULIR</div>
+      <div class="setting-row"><div><b>Konfirmasi pesan</b><small id="confirmationPreview">Jawaban Anda telah dicatat.</small></div><button class="btn light small" id="editConfirmation" type="button">Edit</button></div>
+      <label class="setting-switch"><span>Tampilkan link untuk mengirimkan jawaban lain</span><input id="settingAnother" type="checkbox" checked><i></i></label>
+      <label class="setting-switch"><span>Lihat ringkasan hasil</span><input id="settingSummary" type="checkbox"><i></i></label>
+    </section>
+    <section class="settings-group"><h3>Tema</h3><p>Atur tampilan formulir seperti gaya teks, gambar header, warna, dan latar belakang.</p>
+      <div class="settings-subheading">GAYA TEKS</div><div class="theme-editor">
+        <div class="theme-control"><label for="themeHeaderFont">Header</label><select id="themeHeaderFont"><option>Roboto</option><option>Arial</option><option>Georgia</option><option>Lato</option><option>Poppins</option></select><input id="themeHeaderSize" type="number" min="18" max="48" value="24" aria-label="Ukuran teks header"></div>
+        <div class="theme-control"><label for="themeQuestionFont">Pertanyaan</label><select id="themeQuestionFont"><option>Roboto</option><option>Arial</option><option>Georgia</option><option>Lato</option><option>Poppins</option></select><input id="themeQuestionSize" type="number" min="10" max="24" value="13" aria-label="Ukuran teks pertanyaan"></div>
+        <div class="theme-control"><label for="themeTextFont">Teks</label><select id="themeTextFont"><option>Roboto</option><option>Arial</option><option>Georgia</option><option>Lato</option><option>Poppins</option></select><input id="themeTextSize" type="number" min="9" max="20" value="12" aria-label="Ukuran teks"></div>
+      </div>
+      <div class="settings-subheading">HEADER</div><div class="theme-control"><label for="themeHeaderImage">Pilih gambar header</label><input id="themeHeaderImage" type="file" accept="image/*"><img id="themeHeaderPreview" class="theme-image-preview hidden" alt="Pratinjau gambar header"></div>
+      <div class="settings-subheading">WARNA</div><div class="theme-colors" id="themeColorChoices">${['#ea4335','#ff6d01','#fbbc04','#34a853','#4285f4','#673ab7','#3f51b5','#009688','#607d8b','#9e9e9e','#00bcd4','#e91e63'].map(c=>`<button type="button" class="theme-swatch" data-theme-color="${c}" style="background:${c}" aria-label="Warna ${c}"></button>`).join('')}</div>
+      <div class="settings-subheading">LATAR BELAKANG</div><div class="theme-colors" id="themeBgChoices"><button type="button" class="theme-bg-swatch" data-theme-bg="#f3f4f6" style="background:#f3f4f6" aria-label="Abu muda"></button><button type="button" class="theme-bg-swatch" data-theme-bg="#f3e8ff" style="background:#f3e8ff" aria-label="Ungu muda"></button><button type="button" class="theme-bg-swatch" data-theme-bg="#e8eafc" style="background:#e8eafc" aria-label="Biru muda"></button><button type="button" class="theme-bg-swatch" data-theme-bg="#ffffff" style="background:#fff" aria-label="Putih"></button></div>
+    </section>
+    <div class="settings-save-bar"><small>Perubahan setelan hanya diterapkan setelah tombol Simpan pengaturan diklik. Jika tidak disimpan, perubahan akan dikembalikan.</small><div class="actions"><button class="btn light small" id="discardFormSettings" type="button">Batalkan perubahan</button><button class="btn cyan small" id="saveFormSettings" type="button">Simpan pengaturan</button></div></div>
+  </div>
+  <div class="google-question-list" id="qs"></div><button class="btn add-question-google" id="addq">＋ Tambahkan pertanyaan</button>
+  <div class="builder-actions"><button class="btn light" id="cancelForm">Batal</button><button class="btn cyan" id="savef">Publikasikan formulir</button></div>
+  </div></section></div>
+  <div class="form-preview-modal hidden" id="formPreviewModal" role="dialog" aria-modal="true"><section class="form-preview-panel"><header class="form-preview-head"><div><b>Pratinjau formulir</b><small class="muted" style="display:block">Tampilan responden sebelum dipublikasikan</small></div><button class="btn light small" id="closeFormPreview">Tutup pratinjau</button></header><div class="form-preview-content" id="formPreviewContent"></div></section></div>`;
   const modal=$('#formModal');
-  const closeModal=()=>{modal.classList.add('hidden');};
-  $('#openFormModal').onclick=()=>{modal.classList.remove('hidden');$('#ft').focus()};
-  $('#closeFormModal').onclick=closeModal;$('#closeFormBackdrop').onclick=closeModal;$('#cancelForm').onclick=closeModal;
-  function addq(){
+  const detachedSettingsPanel=$('#formSettingsPanel');
+  const previewModal=$('#formPreviewModal');
+  // Semua popup ditempatkan langsung di body agar tidak terpotong stacking context parent.
+  document.body.append(modal, detachedSettingsPanel, previewModal);
+  let popupZIndex=20000;
+  const bringPopupToFront=(popup)=>{
+    if(!popup)return;
+    popupZIndex+=10;
+    popup.style.zIndex=String(popupZIndex);
+    popup.classList.add('popup-layer-active');
+  };
+  const defaultFormSettings={theme:{headerFont:'Roboto',headerSize:24,questionFont:'Roboto',questionSize:13,textFont:'Roboto',textSize:12,primary:'#4285f4',background:'#f3f4f6',headerImage:''},quiz:false,quizRelease:'immediate',quizShowMissed:true,quizShowCorrect:true,quizShowPoints:true,quizDefaultPoints:0,collectEmail:'no',sendCopy:'off',allowEdit:false,limitOne:false,progress:false,shuffle:false,confirmation:'Jawaban Anda telah dicatat.',another:true,summary:false};
+  let formSettings={...defaultFormSettings},savedFormSettings={...defaultFormSettings},editingFormId=null;
+  // Delegasi tombol X: tetap aktif meskipun popup dipindahkan dan bertumpuk.
+  if(!window.__furqonCloseDelegation){
+    window.__furqonCloseDelegation=true;
+    document.addEventListener('click',function(event){
+      const closeButton=event.target.closest('#closeFormModal,#closeFormSettings,#closeFormPreview,#closePublicForms');
+      if(!closeButton)return;
+      event.preventDefault();event.stopPropagation();
+      const id=closeButton.id;
+      if(id==='closeFormSettings'){
+        document.getElementById('formSettingsPanel')?.classList.add('hidden');
+        document.dispatchEvent(new CustomEvent('furqon:discard-form-settings'));
+      }else if(id==='closeFormModal') document.getElementById('formModal')?.classList.add('hidden');
+      else if(id==='closeFormPreview') document.getElementById('formPreviewModal')?.classList.add('hidden');
+      else if(id==='closePublicForms') document.getElementById('publicFormsModal')?.classList.add('hidden');
+    },true);
+  }
+  const closeModal=()=>modal.classList.add('hidden');
+  $('#openFormModal').onclick=()=>{resetFormEditor();modal.classList.remove('hidden');bringPopupToFront(modal);$('#ft').focus()};
+  $('#closeFormModal').onclick=closeModal;$('#cancelForm').onclick=closeModal; // Editor hanya ditutup melalui tombol X atau Batal; klik area luar tidak menutup editor.
+  const settingsPanel=detachedSettingsPanel;
+  $('#openFormSettings').onclick=()=>{syncSettingsUI();settingsPanel.classList.remove('hidden');bringPopupToFront(settingsPanel);};
+  const syncSettingsUI=()=>{
+    $('#settingQuiz').checked=!!formSettings.quiz;quizExtra.classList.toggle('hidden',!formSettings.quiz);
+    $$('input[name="quizRelease"]').forEach(x=>x.checked=x.value===formSettings.quizRelease);
+    ['quizShowMissed','quizShowCorrect','quizShowPoints'].forEach(k=>$('#'+k).checked=!!formSettings[k]);
+    $('#quizDefaultPoints').value=Number(formSettings.quizDefaultPoints)||0;
+    const map={settingEmail:'collectEmail',settingCopy:'sendCopy',settingEdit:'allowEdit',settingLimit:'limitOne',settingProgress:'progress',settingShuffle:'shuffle',settingAnother:'another',settingSummary:'summary'};
+    Object.entries(map).forEach(([id,k])=>{const el=$('#'+id);if(el)el[el.type==='checkbox'?'checked':'value']=formSettings[k]});
+    $('#confirmationPreview').textContent=formSettings.confirmation||'Jawaban Anda telah dicatat.';
+    const th={...defaultFormSettings.theme,...(formSettings.theme||{})};
+    $('#themeHeaderFont').value=th.headerFont;$('#themeHeaderSize').value=th.headerSize;$('#themeQuestionFont').value=th.questionFont;$('#themeQuestionSize').value=th.questionSize;$('#themeTextFont').value=th.textFont;$('#themeTextSize').value=th.textSize;
+    $('#themeHeaderPreview').src=th.headerImage||'';$('#themeHeaderPreview').classList.toggle('hidden',!th.headerImage);
+    $$('[data-theme-color]').forEach(b=>b.classList.toggle('active',b.dataset.themeColor===th.primary));$$('[data-theme-bg]').forEach(b=>b.classList.toggle('active',b.dataset.themeBg===th.background));
+    refreshQuizKeys();
+  };
+  const discardSettings=()=>{formSettings={...savedFormSettings};syncSettingsUI();settingsPanel.classList.add('hidden')};
+  document.addEventListener('furqon:discard-form-settings',()=>{formSettings={...savedFormSettings};syncSettingsUI();settingsPanel.classList.add('hidden')});
+  $('#closeFormSettings').onclick=discardSettings;
+  $('#discardFormSettings').onclick=discardSettings;
+  $('#saveFormSettings').onclick=()=>{formSettings={...formSettings};savedFormSettings={...formSettings};settingsPanel.classList.add('hidden');refreshQuizKeys();alert('Pengaturan berhasil disimpan untuk formulir ini.')};
+  const currentTheme=()=>({...defaultFormSettings.theme,...(formSettings.theme||{})});
+  const setTheme=(key,value)=>{formSettings.theme={...currentTheme(),[key]:value}};
+  ['themeHeaderFont','themeHeaderSize','themeQuestionFont','themeQuestionSize','themeTextFont','themeTextSize'].forEach(id=>$('#'+id).addEventListener('change',e=>{const map={themeHeaderFont:'headerFont',themeHeaderSize:'headerSize',themeQuestionFont:'questionFont',themeQuestionSize:'questionSize',themeTextFont:'textFont',themeTextSize:'textSize'};setTheme(map[id],id.toLowerCase().includes('size')?Math.max(8,Math.min(48,Number(e.target.value)||12)):e.target.value)}));
+  $$('[data-theme-color]').forEach(b=>b.onclick=()=>{setTheme('primary',b.dataset.themeColor);$$('[data-theme-color]').forEach(x=>x.classList.toggle('active',x===b))});
+  $$('[data-theme-bg]').forEach(b=>b.onclick=()=>{setTheme('background',b.dataset.themeBg);$$('[data-theme-bg]').forEach(x=>x.classList.toggle('active',x===b))});
+  $('#themeHeaderImage').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;if(file.size>2*1024*1024){alert('Gambar header maksimal 2 MB.');e.target.value='';return}const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)});setTheme('headerImage',data);$('#themeHeaderPreview').src=data;$('#themeHeaderPreview').classList.remove('hidden')};
+  $('#closeFormPreview').onclick=()=>previewModal.classList.add('hidden');previewModal.addEventListener('click',e=>{if(e.target.id==='formPreviewModal')e.currentTarget.classList.add('hidden')});
+  // Klik di luar popup pengaturan tidak mengubah halaman maupun menutup editor. Gunakan tombol X.
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#formPreviewModal').classList.contains('hidden'))$('#formPreviewModal').classList.add('hidden');else if(!settingsPanel.classList.contains('hidden'))discardSettings();}});
+  $('#previewForm').onclick=()=>showFormPreview();
+  function showFormPreview(){
+    settingsPanel.classList.add('hidden');
+    const title=$('#ft').value.trim()||'Judul formulir',description=$('#fd').value.trim(),theme=currentTheme(),questions=$$('#qs .question').map(q=>({text:q.querySelector('.qt').value.trim(),type:q.querySelector('.ty').value,options:[...q.querySelectorAll('.op-item')].map(x=>x.value.trim()).filter(Boolean),required:q.querySelector('.req').checked,min:q.querySelector('.scale-min')?.value||1,max:q.querySelector('.scale-max')?.value||5,minLabel:q.querySelector('.scale-min-label')?.value||'',maxLabel:q.querySelector('.scale-max-label')?.value||''})).filter(q=>q.text);
+    const preview=$('#formPreviewContent');const safeColor=/^#[0-9a-f]{6}$/i;const primary=safeColor.test(theme.primary)?theme.primary:'#4285f4',bg=safeColor.test(theme.background)?theme.background:'#f3f4f6';
+    const control=(q,i)=>{const name='pv'+i;if(q.type==='paragraph')return '<textarea class="respond-textarea" placeholder="Ketik jawaban Anda..."></textarea>';if(['radio','checkbox'].includes(q.type))return `<div class="respond-choices">${q.options.map(o=>`<label class="respond-choice"><input type="${q.type}" name="${name}"><span>${esc(o)}</span></label>`).join('')}</div>`;if(q.type==='dropdown')return `<select class="respond-input"><option>Pilih satu jawaban</option>${q.options.map(o=>`<option>${esc(o)}</option>`).join('')}</select>`;if(q.type==='scale')return `<div class="likert-options">${Array.from({length:Math.min(21,Number(q.max)-Number(q.min)+1)},(_,k)=>Number(q.min)+k).map(n=>`<label class="likert-option"><input type="radio" name="${name}"><span>${n}</span></label>`).join('')}</div>`;if(q.type==='rating')return '<div class="rating-options">★★★★★</div>';if(q.type==='date'||q.type==='time')return `<input class="respond-input" type="${q.type}">`;if(q.type==='file')return '<input class="respond-input" type="file">';return '<input class="respond-input" placeholder="Ketik jawaban Anda...">'};
+    preview.innerHTML=`<div class="respond-form-shell" style="--form-primary:${primary};font-family:${esc(theme.textFont)},Arial,sans-serif;font-size:${Number(theme.textSize)||12}px"><div class="respond-form-banner" style="--preview-primary:${primary};--preview-bg:${bg};border-top-color:${primary};background:${bg};${theme.headerImage?`background-image:linear-gradient(#ffffffd9,#ffffffd9),url('${theme.headerImage}');background-size:cover;background-position:center;`:''}"><span class="section-eyebrow">FORM PENELITIAN</span><h2 style="font-family:${esc(theme.headerFont)},Arial,sans-serif;font-size:${Math.max(18,Math.min(48,Number(theme.headerSize)||24))}px">${esc(title)}</h2><p>${esc(description||'Silakan isi pertanyaan berikut.')}</p></div>${questions.map((q,i)=>`<section class="respond-question preview-question" style="font-family:${esc(theme.questionFont)},Arial,sans-serif;font-size:${Math.max(10,Math.min(24,Number(theme.questionSize)||13))}px"><div class="respond-question-title"><span class="respond-number" style="background:color-mix(in srgb,${primary} 12%,white);color:${primary}">${i+1}</span><label>${esc(q.text)}${q.required?'<em>*</em>':''}</label></div>${control(q,i)}</section>`).join('')||'<div class="card">Belum ada pertanyaan untuk ditampilkan.</div>'}<div class="respond-submit-row"><button class="btn cyan" type="button">Kirim jawaban</button></div></div>`;
+    previewModal.classList.remove('hidden');
+    bringPopupToFront(previewModal);
+  }
+  const quizExtra=$('#quizExtraSettings');
+  const refreshQuizKeys=()=>{
+    $$('#qs .question').forEach(d=>{
+      const key=d.querySelector('.answer-key-box');if(!key)return;
+      key.classList.toggle('hidden',!formSettings.quiz);
+      if(formSettings.quiz)updateQuizAnswerKey(d);
+    });
+  };
+  $('#settingQuiz').addEventListener('change',e=>{
+    formSettings.quiz=!!e.currentTarget.checked;
+    quizExtra.classList.toggle('hidden',!formSettings.quiz);
+    refreshQuizKeys();
+  });
+  const settingMap={settingEmail:'collectEmail',settingCopy:'sendCopy',settingEdit:'allowEdit',settingLimit:'limitOne',settingProgress:'progress',settingShuffle:'shuffle',settingAnother:'another',settingSummary:'summary'};
+  Object.entries(settingMap).forEach(([id,key])=>{
+    const control=$('#'+id);if(!control)return;
+    control.addEventListener('change',e=>{formSettings[key]=control.type==='checkbox'?!!e.currentTarget.checked:e.currentTarget.value});
+  });
+  $$('input[name="quizRelease"]').forEach(control=>control.addEventListener('change',e=>{if(e.currentTarget.checked)formSettings.quizRelease=e.currentTarget.value}));
+  [['quizShowMissed','quizShowMissed'],['quizShowCorrect','quizShowCorrect'],['quizShowPoints','quizShowPoints']].forEach(([id,key])=>$('#'+id).addEventListener('change',e=>formSettings[key]=!!e.currentTarget.checked));
+  $('#quizDefaultPoints').addEventListener('change',e=>{formSettings.quizDefaultPoints=Math.max(0,Number(e.currentTarget.value)||0);e.currentTarget.value=formSettings.quizDefaultPoints;$$('#qs .question-points').forEach(input=>{if(input.dataset.userEdited!=='true')input.value=formSettings.quizDefaultPoints})});
+  $('#editConfirmation').onclick=()=>{let msg=prompt('Pesan konfirmasi setelah pengiriman:',formSettings.confirmation);if(msg!==null){formSettings.confirmation=msg.trim()||'Jawaban Anda telah dicatat.';$('#confirmationPreview').textContent=formSettings.confirmation}};
+  const questionTypes=`<option value="short">Jawaban singkat</option><option value="paragraph">Paragraf</option><option value="radio">Pilihan ganda</option><option value="checkbox">Kotak centang</option><option value="dropdown">Dropdown (pilih satu)</option><option value="file">Upload File</option><option value="scale">Skala Linear</option><option value="rating">Rating (bintang 1–5)</option><option value="date">Tanggal</option><option value="time">Waktu</option>`;
+  function updateQuizAnswerKey(d){
+    const key=d.querySelector('.answer-key-box');if(!key)return;
+    key.classList.toggle('hidden',!formSettings.quiz);
+    if(!formSettings.quiz)return;
+    const type=d.querySelector('.ty').value,area=key.querySelector('.answer-key-options');
+    const previous=area.querySelector('.correct-answer')?.value||d.dataset.correctAnswer||'';
+    const checked=[...area.querySelectorAll('.correct-option:checked')].map(x=>x.value);
+    const seeded=JSON.parse(d.dataset.correctAnswers||'[]');
+    if(['radio','dropdown'].includes(type)){
+      area.innerHTML=`<label>Jawaban benar <select class="correct-answer"><option value="">Pilih jawaban benar</option>${[...d.querySelectorAll('.op-item')].map((o,i)=>`<option value="${esc(o.value)}">${esc(o.value||'Opsi '+(i+1))}</option>`).join('')}</select></label>`;
+      area.querySelector('.correct-answer').value=previous;
+    }else if(type==='checkbox'){
+      area.innerHTML='<small>Pilih semua opsi yang benar:</small>'+[...d.querySelectorAll('.op-item')].map((o,i)=>`<label class="correct-check"><input type="checkbox" class="correct-option" value="${esc(o.value)}" ${checked.includes(o.value)?'checked':''}> ${esc(o.value||'Opsi '+(i+1))}</label>`).join('');
+    }else area.innerHTML='<small>Kunci jawaban otomatis tersedia untuk pilihan ganda, kotak centang, dan dropdown.</small>';
+  }
+  function drawOptions(d){
+    const type=d.querySelector('.ty').value,box=d.querySelector('.google-options');
+    if(['radio','checkbox','dropdown'].includes(type)){
+      box.innerHTML=`<div class="option-list"><div class="option-row"><span>○</span><input class="op-item" placeholder="Opsi 1"><button type="button" class="remove-option">×</button></div></div><button type="button" class="add-option">＋ Tambahkan opsi</button>`;
+      const list=box.querySelector('.option-list');
+      const bind=()=>list.querySelectorAll('.remove-option').forEach(btn=>btn.onclick=()=>{if(list.children.length>2)btn.parentElement.remove();else alert('Minimal dua opsi diperlukan.')});
+      bind();box.querySelector('.add-option').onclick=()=>{let row=document.createElement('div');row.className='option-row';row.innerHTML=`<span>○</span><input class="op-item" placeholder="Opsi ${list.children.length+1}"><button type="button" class="remove-option">×</button>`;list.append(row);bind();updateQuizAnswerKey(d)};
+    }else if(type==='scale'){
+      box.innerHTML=`<div class="scale-editor"><label>Nilai minimum <input class="scale-min" type="number" value="1"></label><label>Nilai maksimum <input class="scale-max" type="number" value="5"></label><label>Label minimum <input class="scale-min-label" placeholder="Tidak puas"></label><label>Label maksimum <input class="scale-max-label" placeholder="Sangat puas"></label></div>`;
+    }else if(type==='rating'){
+      box.innerHTML='<small class="likert-hint">Responden memberikan rating bintang dari 1 sampai 5.</small>';
+    }else if(type==='file'){
+      box.innerHTML='<small class="likert-hint">Responden dapat memilih satu file untuk diunggah.</small>';
+    }else box.innerHTML='<div class="answer-preview">'+({short:'Teks jawaban singkat',paragraph:'Teks jawaban panjang',date:'Pemilih tanggal',time:'Pemilih waktu'}[type]||'')+'</div>';
+    updateQuizAnswerKey(d);
+  }
+  function resetFormEditor(){
+    editingFormId=null;formSettings={...defaultFormSettings,theme:{...defaultFormSettings.theme}};savedFormSettings={...formSettings,theme:{...formSettings.theme}};$('#themeHeaderImage').value='';
+    $('#formEditorTitle').textContent='Buat Formulir Baru';$('#savef').textContent='Publikasikan formulir';
+    $('#ft').value='';$('#fd').value='';$('#formStart').value='';$('#formEnd').value='';$('#qs').innerHTML='';
+    $('#importStatus').classList.add('hidden');settingsPanel.classList.add('hidden');syncSettingsUI();
+    $('#qs').innerHTML='';addq();
+  }
+  function loadFormForEdit(id){
+    const f=db.forms.find(x=>String(x.id)===String(id));if(!f)return;
+    editingFormId=f.id;formSettings={...defaultFormSettings,...(f.settings||{}),theme:{...defaultFormSettings.theme,...(f.settings?.theme||{})}};savedFormSettings={...formSettings,theme:{...formSettings.theme}};$('#themeHeaderImage').value='';
+    $('#formEditorTitle').textContent='Edit Formulir';$('#savef').textContent='Simpan perubahan';
+    $('#ft').value=f.title||'';$('#fd').value=f.description||'';$('#formStart').value=f.start||'';$('#formEnd').value=f.end||'';
+    $('#qs').innerHTML='';settingsPanel.classList.add('hidden');syncSettingsUI();
+    (f.questions||[]).forEach(q=>addq(q));if(!(f.questions||[]).length)addq();
+    modal.classList.remove('hidden');
+  }
+  function addq(seed={}){
     let d=document.createElement('article');d.className='question google-question';
-    d.innerHTML=`<div class="google-question-top"><span>☷</span><b>Pertanyaan</b><div class="question-tools"><button type="button" class="duplicate-question" title="Duplikat pertanyaan">▢</button><button type="button" class="question-remove" title="Hapus pertanyaan">×</button></div></div><input class="qt" placeholder="Tulis pertanyaan"><div class="google-question-controls"><select class="ty"><option value="text">Jawaban singkat</option><option value="paragraph">Paragraf</option><option value="radio">Pilihan ganda</option><option value="checkbox">Kotak centang</option><option value="likert">Skala Likert 1–5</option></select></div><div class="google-options"></div><label class="required-toggle"><input type="checkbox" class="req" checked style="width:auto"> Wajib diisi</label>`;
-    const options=d.querySelector('.google-options'),type=d.querySelector('.ty');
-    const drawOptions=()=>{
-      if(['radio','checkbox'].includes(type.value)){
-        options.innerHTML=`<div class="option-list"><div class="option-row"><span>○</span><input class="op-item" placeholder="Opsi 1"><button type="button" class="remove-option" title="Hapus opsi">×</button></div></div><button type="button" class="add-option">＋ Tambahkan opsi</button>`;
-        const list=options.querySelector('.option-list');
-        const bindRemove=()=>list.querySelectorAll('.remove-option').forEach(btn=>btn.onclick=()=>{if(list.children.length>1)btn.parentElement.remove()});
-        bindRemove();options.querySelector('.add-option').onclick=()=>{let n=list.children.length+1,row=document.createElement('div');row.className='option-row';row.innerHTML=`<span>○</span><input class="op-item" placeholder="Opsi ${n}"><button type="button" class="remove-option">×</button>`;list.append(row);bindRemove();row.querySelector('input').focus()};
-      }else if(type.value==='likert'){
-        options.innerHTML='<small class="likert-hint">Skala jawaban 1 sampai 5 akan ditampilkan kepada responden.</small>';
-      }else{
-        options.innerHTML='<div class="answer-preview">'+(type.value==='paragraph'?'Teks jawaban panjang':'Teks jawaban singkat')+'</div>';
-      }
-    };
-    type.onchange=drawOptions;drawOptions();
+    d.innerHTML=`<div class="google-question-top"><span>☷</span><b>Pertanyaan</b><div class="question-tools"><button type="button" class="duplicate-question" title="Duplikat pertanyaan">▢</button><button type="button" class="question-remove" title="Hapus pertanyaan">×</button></div></div><input class="qt" placeholder="Tulis pertanyaan"><div class="google-question-controls"><select class="ty">${questionTypes}</select></div><div class="google-options"></div><div class="answer-key-box hidden"><b>Kunci jawaban kuis</b><div class="answer-key-options"></div><label>Poin <input class="question-points" type="number" min="0" value="${Number(formSettings.quizDefaultPoints)||0}"></label></div><label class="required-toggle"><input type="checkbox" class="req" checked style="width:auto"> Wajib diisi</label>`;
+    d.querySelector('.qt').value=seed.text||'';
+    const type=d.querySelector('.ty');type.value=seed.type||'short';
+    type.onchange=()=>drawOptions(d);
+    d.querySelector('.google-options').addEventListener('change',()=>{if(formSettings.quiz)updateQuizAnswerKey(d)});
+    d.querySelector('.question-points').addEventListener('input',e=>e.currentTarget.dataset.userEdited='true');
     d.querySelector('.question-remove').onclick=()=>d.remove();
-    d.querySelector('.duplicate-question').onclick=()=>{
-      const copy=addq(),oldType=d.querySelector('.ty').value;copy.querySelector('.qt').value=d.querySelector('.qt').value;copy.querySelector('.ty').value=oldType;copy.querySelector('.ty').dispatchEvent(new Event('change'));
-      const oldOpts=[...d.querySelectorAll('.op-item')].map(x=>x.value);
-      if(['radio','checkbox'].includes(oldType)){const add=copy.querySelector('.add-option');oldOpts.slice(1).forEach(()=>add.click());copy.querySelectorAll('.op-item').forEach((x,i)=>x.value=oldOpts[i]||'');}
-      copy.querySelector('.req').checked=d.querySelector('.req').checked;
-    };
-    d.querySelector('.question-remove').title='Hapus pertanyaan';
-    $('#qs').append(d);
+    d.querySelector('.duplicate-question').onclick=()=>{const copy=addq({text:d.querySelector('.qt').value,type:type.value});copy.querySelector('.req').checked=d.querySelector('.req').checked;copy.querySelector('.question-points').value=d.querySelector('.question-points').value;const vals=[...d.querySelectorAll('.op-item')].map(x=>x.value);if(vals.length){vals.slice(1).forEach(()=>copy.querySelector('.add-option')?.click());copy.querySelectorAll('.op-item').forEach((x,i)=>x.value=vals[i]||'');drawOptions(copy)}};
+    $('#qs').append(d);drawOptions(d);
+    if(seed.correctAnswer)d.dataset.correctAnswer=seed.correctAnswer;
+    if(seed.correctAnswers)d.dataset.correctAnswers=JSON.stringify(seed.correctAnswers);
+    if(seed.min!==undefined){d.querySelector('.scale-min').value=seed.min;d.querySelector('.scale-max').value=seed.max;d.querySelector('.scale-min-label').value=seed.minLabel||'';d.querySelector('.scale-max-label').value=seed.maxLabel||'';}
+    if(seed.options?.length){seed.options.slice(1).forEach(()=>d.querySelector('.add-option')?.click());d.querySelectorAll('.op-item').forEach((x,i)=>x.value=seed.options[i]||'');if(formSettings.quiz)updateQuizAnswerKey(d)}
+    d.querySelector('.req').checked=seed.required!==false;
+    if(seed.points!==undefined)d.querySelector('.question-points').value=Number(seed.points)||0;
+    if(formSettings.quiz)updateQuizAnswerKey(d);
     return d;
   }
   $('#addq').onclick=()=>{let q=addq();q.querySelector('.qt').focus()};
+  // Inisialisasi pertanyaan dilakukan di sini. Sinkronisasi pengaturan ditunda
+  // sampai pengguna membuka editor, setelah seluruh konstanta pengaturan selesai dibuat.
   addq();
-  $('#savef').onclick=()=>{
-    let questions=$$('#qs .question').map(q=>({text:q.querySelector('.qt').value.trim(),type:q.querySelector('.ty').value,options:[...q.querySelectorAll('.op-item')].map(x=>x.value.trim()).filter(Boolean),required:q.querySelector('.req').checked})).filter(q=>q.text),
-      title=$('#ft').value.trim(),start=$('#formStart').value,end=$('#formEnd').value;
+
+  $('#questionImport').onchange=async e=>{
+    const file=e.target.files[0];if(!file)return;
+    const status=$('#importStatus');status.classList.remove('hidden');status.textContent='Membaca dokumen dan mengenali pertanyaan...';
+    try{
+      let textContent='';
+      if(file.name.toLowerCase().endsWith('.docx')){
+        if(!window.mammoth)throw new Error('Pembaca Word belum termuat. Periksa koneksi internet.');
+        const ab=await file.arrayBuffer();const result=await mammoth.extractRawText({arrayBuffer:ab});textContent=result.value;
+      }else if(file.name.toLowerCase().endsWith('.pdf')){
+        if(!window.pdfjsLib)throw new Error('Pembaca PDF belum termuat. Periksa koneksi internet.');
+        const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;
+        for(let n=1;n<=pdf.numPages;n++){const page=await pdf.getPage(n),content=await page.getTextContent(),lines={};content.items.forEach(item=>{const y=Math.round(item.transform?.[5]||0);(lines[y]||(lines[y]=[])).push(item.str)});textContent+=Object.keys(lines).sort((a,b)=>Number(b)-Number(a)).map(y=>lines[y].join(' ')).join('\n')+'\n'}
+      }else throw new Error('Format yang didukung adalah .docx dan .pdf.');
+      const parsed=parseImportedQuestions(textContent);
+      if(!parsed.length)throw new Error('Tidak ditemukan pertanyaan. Gunakan penomoran seperti 1. Pertanyaan atau 1) Pertanyaan.');
+      if(!confirm(`Ditemukan ${parsed.length} pertanyaan. Tambahkan semuanya ke formulir?`))return;
+      const current=$$('#qs .question');if(current.length===1&&!current[0].querySelector('.qt').value.trim())current[0].remove();
+      parsed.forEach(q=>addq(q));
+      status.className='success';status.textContent=`Berhasil mengimpor ${parsed.length} pertanyaan dari ${file.name}. Periksa kembali susunan dan jenis pertanyaannya sebelum dipublikasikan.`;
+    }catch(err){status.className='notice';status.textContent='Import gagal: '+err.message}
+    finally{e.target.value=''}
+  };
+  function parseImportedQuestions(raw){
+    const lines=raw.replace(/\r/g,'\n').split('\n').map(x=>x.trim()).filter(Boolean),out=[];let cur=null;
+    const push=()=>{if(cur&&cur.text){if(cur.options.length)cur.type='radio';out.push(cur)}};
+    for(const line of lines){
+      const qmatch=line.match(/^(?:soal\s*)?(?:\d{1,3}[.)]|[A-Z][.)])\s+(.+)$/i);
+      const omatch=line.match(/^(?:[a-eA-E][.)]|\(?[a-eA-E]\))\s+(.+)$/);
+      if(omatch&&cur){cur.options.push(omatch[1]);continue}
+      if(qmatch){push();cur={text:qmatch[1],type:'short',options:[]};continue}
+      if(cur)cur.text+=' '+line;
+    }
+    push();
+    return out;
+  }
+  $('#savef').onclick=async()=>{
+    const settingsToSave={...savedFormSettings};
+    let questions=$$('#qs .question').map(q=>{
+      const type=q.querySelector('.ty').value,opts=[...q.querySelectorAll('.op-item')].map(x=>x.value.trim()).filter(Boolean);
+      const item={text:q.querySelector('.qt').value.trim(),type,options:opts,required:q.querySelector('.req').checked};
+      if(type==='scale'){item.min=Number(q.querySelector('.scale-min')?.value??1);item.max=Number(q.querySelector('.scale-max')?.value??5);item.minLabel=q.querySelector('.scale-min-label')?.value||'';item.maxLabel=q.querySelector('.scale-max-label')?.value||''}
+      if(settingsToSave.quiz){item.points=Math.max(0,Number(q.querySelector('.question-points')?.value??settingsToSave.quizDefaultPoints)||0);if(['radio','dropdown'].includes(type))item.correctAnswer=q.querySelector('.correct-answer')?.value||'';if(type==='checkbox')item.correctAnswers=[...q.querySelectorAll('.correct-option:checked')].map(x=>x.value)}
+      return item;
+    }).filter(q=>q.text);
+    const title=$('#ft').value.trim(),start=$('#formStart').value,end=$('#formEnd').value;
     if(!title||!questions.length){alert('Isi judul dan minimal satu pertanyaan.');return}
     if(!start||!end||new Date(end)<=new Date(start)){alert('Periksa tanggal dan jam mulai serta penutupan formulir.');return}
-    if(questions.some(q=>['radio','checkbox'].includes(q.type)&&q.options.length<2)){alert('Pertanyaan pilihan ganda atau kotak centang minimal memiliki dua opsi.');return}
-    db.forms.push({id:uid(),title,description:$('#fd').value,questions,start,end,active:true});
-    save();log('Membuat form '+title);builder();
+    if(questions.some(q=>['radio','checkbox','dropdown'].includes(q.type)&&q.options.length<2)){alert('Pilihan ganda, kotak centang, dan dropdown minimal memiliki dua opsi.');return}
+    if(settingsToSave.quiz&&questions.some(q=>['radio','dropdown'].includes(q.type)&&!q.correctAnswer)){alert('Tetapkan satu jawaban yang benar untuk setiap pertanyaan pilihan ganda dan dropdown.');return}
+    if(settingsToSave.quiz&&questions.some(q=>q.type==='checkbox'&&(!q.correctAnswers||!q.correctAnswers.length))){alert('Pilih minimal satu jawaban benar untuk setiap pertanyaan kotak centang.');return}
+    if(questions.some(q=>q.type==='scale'&&(!Number.isFinite(q.min)||!Number.isFinite(q.max)||q.max<=q.min))){alert('Nilai maksimum skala harus lebih besar daripada nilai minimum.');return}
+    const settings={...settingsToSave};
+    if(editingFormId){const existing=db.forms.find(f=>String(f.id)===String(editingFormId));if(!existing){alert('Formulir yang akan diedit tidak ditemukan.');return}Object.assign(existing,{title,description:$('#fd').value,questions,start,end,settings});try{await save();log('Memperbarui form '+title);builder()}catch(err){alert('Perubahan belum berhasil disimpan. Periksa koneksi Firebase.')}}else{db.forms.push({id:uid(),title,description:$('#fd').value,questions,start,end,active:true,settings});try{await save();log('Membuat form '+title);builder()}catch(err){alert('Formulir belum berhasil disimpan. Periksa koneksi Firebase.')}}
   };
-  $$('[data-toggleform]').forEach(b=>b.onclick=()=>{let f=db.forms.find(x=>x.id===b.dataset.toggleform);f.active=!f.active;save();log((f.active?'Mengaktifkan':'Menonaktifkan')+' form '+f.title);builder()});
-  $$('[data-fdel]').forEach(b=>b.onclick=()=>{if(confirm('Hapus formulir ini?')){db.forms=db.forms.filter(f=>f.id!==b.dataset.fdel);save();builder()}});
+  $$('[data-fedit]').forEach(b=>b.onclick=()=>loadFormForEdit(b.dataset.fedit));
+  $$('[data-toggleform]').forEach(b=>b.onclick=async()=>{let f=db.forms.find(x=>x.id===b.dataset.toggleform);f.active=!f.active;await save();log((f.active?'Mengaktifkan':'Menonaktifkan')+' form '+f.title);builder()});
+  $$('[data-fdel]').forEach(b=>b.onclick=async()=>{if(confirm('Hapus formulir ini?')){db.forms=db.forms.filter(f=>f.id!==b.dataset.fdel);await save();builder()}});
 }
 function available(){let now=new Date(),forms=db.forms.filter(f=>f.active&&(!f.start||now>=new Date(f.start))&&(!f.end||now<=new Date(f.end)));$('#view').innerHTML=`<h1>Form Tersedia</h1><p class="muted">Formulir yang sedang aktif dan berada dalam jadwal pengisian.</p>${forms.map(f=>`<div class="card between"><div><h2>${esc(f.title)}</h2><p class="muted">${esc(f.description||'')}</p><span class="pill">Ditutup: ${f.end?new Date(f.end).toLocaleString('id-ID'):'Tidak ditentukan'}</span></div><button class="btn cyan" data-fill="${f.id}">Isi formulir</button></div>`).join('')||'<div class="card">Tidak ada formulir yang sedang dibuka saat ini.</div>'}<div id="fill"></div>`;$$('[data-fill]').forEach(b=>b.onclick=()=>fill(b.dataset.fill))}
-function fill(id){let f=db.forms.find(x=>x.id===id),now=new Date();if(!f||!f.active||(f.start&&now<new Date(f.start))||(f.end&&now>new Date(f.end))){alert('Formulir belum dibuka, sudah ditutup, atau dinonaktifkan.');available();return}$('#fill').innerHTML=`<div class="card"><h2>${esc(f.title)}</h2><form id="resp">${f.questions.map((q,i)=>`<div class="question"><label>${i+1}. ${esc(q.text)}</label>${q.type==='paragraph'?`<textarea name="q${i}" ${q.required?'required':''}></textarea>`:q.type==='likert'?`<select name="q${i}" required><option value="">Pilih skala</option>${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join('')}</select>`:q.type==='radio'||q.type==='checkbox'?q.options.map(o=>`<label style="display:block;font-weight:400"><input type="${q.type}" name="q${i}" value="${esc(o)}" style="width:auto"> ${esc(o)}</label>`).join(''):`<input name="q${i}" ${q.required?'required':''}>`}</div>`).join('')}<button class="btn cyan">Kirim jawaban</button></form></div>`;$('#resp').onsubmit=e=>{e.preventDefault();let fd=new FormData(e.target),answers=f.questions.map((q,i)=>({q:q.text,a:q.type==='checkbox'?fd.getAll('q'+i):fd.get('q'+i)}));db.responses.push({id:uid(),form:f.title,answers,date:new Date().toLocaleString('id-ID')});save();log('Jawaban masuk: '+f.title);$('#fill').innerHTML='<div class="success">Terima kasih. Jawaban tersimpan di browser ini.</div>'}}
+function fill(id){
+ const f=db.forms.find(x=>x.id===id);if(!f)return;
+ const cfg=f.settings||{},theme=cfg.theme||{},accent=theme.color||theme.accent||'#20c5df',font=theme.textFont||'Roboto',titleFont=theme.headerFont||'Roboto',headerImage=theme.headerImage||'',questions=f.questions||[];
+ const renderQuestion=(q,i)=>{const req=q.required?'<span class="respondent-required">*</span>':'';let control='';
+ if(q.type==='paragraph')control=`<textarea name="q${i}" ${q.required?'required':''} placeholder="Tulis jawaban Anda"></textarea>`;
+ else if(q.type==='radio'||q.type==='checkbox')control=(q.options||[]).map((o,k)=>`<label class="respondent-choice"><input type="${q.type}" name="q${i}" value="${esc(o)}" ${q.required&&q.type==='radio'&&k===0?'required':''}><span>${esc(o)}</span></label>`).join('');
+ else if(q.type==='dropdown')control=`<select name="q${i}" ${q.required?'required':''}><option value="">Pilih satu jawaban</option>${(q.options||[]).map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`;
+ else if(q.type==='scale'||q.type==='likert'){const min=Number(q.min??1),max=Number(q.max??5);control=`<div class="row" style="align-items:center;gap:10px"><span class="muted">${min}</span><input type="range" name="q${i}" min="${min}" max="${max}" value="${min}" style="flex:1;accent-color:${esc(accent)}"><output>${min}</output><span class="muted">${max}</span></div>`}
+ else if(q.type==='rating')control=`<div class="row" style="gap:8px">${[1,2,3,4,5].map(n=>`<label class="respondent-choice"><input type="radio" name="q${i}" value="${n}" ${q.required&&n===1?'required':''}><span>${'★'.repeat(n)}${'☆'.repeat(5-n)}</span></label>`).join('')}</div>`;
+ else if(q.type==='file')control=`<input type="file" name="q${i}" ${q.required?'required':''}>`;
+ else if(q.type==='date'||q.type==='time')control=`<input type="${q.type}" name="q${i}" ${q.required?'required':''}>`;
+ else control=`<input type="text" name="q${i}" placeholder="Tulis jawaban singkat" ${q.required?'required':''}>`;
+ return `<section class="respondent-question"><label class="respondent-question-title">${i+1}. ${esc(q.text||'Pertanyaan')}${req}</label><div class="respondent-answer">${control}</div></section>`};
+ const progress=cfg.showProgress?'<div class="respondent-progress"><span id="respondentProgressBar"></span></div>':'';
+ $('#fill').innerHTML=`<div class="respondent-shell" style="--form-accent:${esc(accent)};font-family:${esc(font)},Arial,sans-serif">${progress}<div class="respondent-topline"></div><header class="respondent-title-card">${headerImage?`<img class="respondent-header-image" src="${headerImage}" alt="Header formulir">`:''}<h1 style="font-family:${esc(titleFont)},Arial,sans-serif">${esc(f.title)}</h1><p>${esc(f.description||'')}</p><div class="respondent-footnote" style="margin-top:17px"><span class="respondent-required">*</span> Wajib diisi</div></header><form id="resp">${questions.map(renderQuestion).join('')}<div class="respondent-submit-row"><span class="respondent-footnote">Periksa kembali jawaban Anda sebelum mengirim.</span><button class="btn respondent-submit" type="submit">Kirim jawaban →</button></div></form></div>`;
+ const formEl=$('#resp');formEl.querySelectorAll('input[type="range"]').forEach(el=>el.addEventListener('input',()=>el.parentElement.querySelector('output').textContent=el.value));
+ const bar=$('#respondentProgressBar');if(bar){const update=()=>{let done=0;questions.forEach((q,i)=>{const els=[...formEl.querySelectorAll(`[name="q${i}"]`)];const answered=els.some(el=>el.type==='radio'||el.type==='checkbox')?els.some(el=>el.checked):els.some(el=>el.value);if(answered)done++});bar.style.width=(questions.length?done/questions.length*100:0)+'%'};formEl.addEventListener('input',update);formEl.addEventListener('change',update);update()}
+ formEl.onsubmit=async e=>{e.preventDefault();for(let i=0;i<questions.length;i++){const q=questions[i];if(q.required&&q.type==='checkbox'&&!formEl.querySelectorAll(`[name="q${i}"]:checked`).length){alert(`Pertanyaan nomor ${i+1} wajib dijawab.`);return}}
+ const submit=formEl.querySelector('button[type="submit"]');submit.disabled=true;submit.textContent='Mengirim...';try{const fd=new FormData(formEl),answers=[];for(let i=0;i<questions.length;i++){const q=questions[i];let v=q.type==='checkbox'?fd.getAll('q'+i):fd.get('q'+i);if(q.type==='file'&&fd.get('q'+i)?.size)v={name:fd.get('q'+i).name,type:fd.get('q'+i).type,size:fd.get('q'+i).size};answers.push({question:q.text,answer:v})}db.responses.push({id:uid(),formId:f.id,formTitle:f.title,answers,submittedAt:new Date().toISOString()});await save();log('Jawaban masuk: '+f.title);$('#fill').innerHTML=`<div class="respondent-success"><div class="respondent-success-icon">✓</div><h2>Jawaban berhasil dikirim</h2><p>${esc(cfg.confirmation||'Terima kasih. Jawaban Anda telah dicatat.')}</p></div>`}catch(err){submit.disabled=false;submit.textContent='Kirim jawaban →';alert('Jawaban belum berhasil dikirim. Periksa koneksi, lalu coba kembali.')}};
+}
 function responses(){
-  const list=db.responses||[];
-  const ordered=list.slice().sort((a,b)=>new Date(b.submittedAt||b.date||0)-new Date(a.submittedAt||a.date||0));
-  $('#view').innerHTML=`<section class="response-hero"><div><span class="section-eyebrow">RESEARCH DATA</span><h1>Jawaban Responden</h1><p>Data jawaban yang berhasil dikirim melalui Form Penelitian.</p></div><div class="response-count"><b>${list.length}</b><small>respons tersimpan</small></div></section><div class="card response-manager"><div class="between"><div><h2>Data respons</h2><p class="muted">Satu baris respons mewakili satu responden.</p></div><button class="btn cyan" id="csv" ${list.length?'':'disabled'}>↓ Ekspor CSV</button></div><div class="response-list">${ordered.map((r,i)=>`<details class="response-item"><summary><span class="response-index">${i+1}</span><span class="response-summary-main"><b>${esc(r.formTitle||r.form||'Formulir')}</b><small>${new Date(r.submittedAt||r.date||Date.now()).toLocaleString('id-ID')} · ${esc(r.respondent||'Responden')}</small></span><span class="response-answer-count">${(r.answers||[]).length} jawaban</span><span class="response-summary-chevron">⌄</span></summary><div class="response-detail">${(r.answers||[]).map((a,j)=>`<div class="response-answer"><small>${j+1}. ${esc(a.question||a.q||'Pertanyaan')}</small><p>${esc(Array.isArray(a.answer??a.a)?(a.answer??a.a).join(', '):(a.answer??a.a??'—'))}</p></div>`).join('')}<div class="response-actions"><button class="btn danger small" data-delete-response="${esc(r.id||'')}">Hapus jawaban responden</button></div></div></details>`).join('')||'<div class="form-empty"><span>☷</span><b>Belum ada jawaban responden</b><small>Respons yang dikirim melalui halaman Form Penelitian akan muncul di sini.</small></div>'}</div></div>`;
+ const list=db.responses||[],ordered=list.slice().sort((a,b)=>new Date(b.submittedAt||b.date||0)-new Date(a.submittedAt||a.date||0)),groups=new Map();
+ ordered.forEach(r=>{const key=String(r.formId||r.formTitle||r.form||'tanpa-formulir');if(!groups.has(key))groups.set(key,[]);groups.get(key).push(r)});
+ const groupMarkup=[...groups.entries()].map(([key,items],gi)=>{const title=items[0].formTitle||items[0].form||db.forms.find(f=>String(f.id)===key)?.title||'Formulir';return `<details class="response-form-group" ${gi===0?'open':''}><summary><span class="response-form-icon">▤</span><span class="response-form-meta"><b>${esc(title)}</b><small>${items.length} jawaban · Terbaru ${new Date(items[0].submittedAt||items[0].date||Date.now()).toLocaleString('id-ID')}</small></span><span class="response-form-count">${items.length} respons</span><span class="response-summary-chevron">⌄</span></summary><div class="response-form-body">${items.map((r,i)=>`<details class="response-item"><summary><span class="response-index">${i+1}</span><span class="response-summary-main"><b>${esc(r.respondent||'Responden '+(i+1))}</b><small>${new Date(r.submittedAt||r.date||Date.now()).toLocaleString('id-ID')}</small></span><span class="response-answer-count">${(r.answers||[]).length} jawaban</span><span class="response-summary-chevron">⌄</span></summary><div class="response-detail">${(r.answers||[]).map((a,j)=>`<div class="response-answer"><small>${j+1}. ${esc(a.question||a.q||'Pertanyaan')}</small><p>${esc(Array.isArray(a.answer??a.a)?(a.answer??a.a).join(', '):(a.answer??a.a??'—'))}</p></div>`).join('')}<div class="response-actions"><button class="btn danger small" data-delete-response="${esc(r.id||'')}">Hapus jawaban responden</button></div></div></details>`).join('')}</div></details>`}).join('');
+ $('#view').innerHTML=`<section class="response-hero"><div><span class="section-eyebrow">RESEARCH DATA</span><h1>Jawaban Responden</h1><p>Respons dikelompokkan berdasarkan formulir agar data setiap formulir tidak tercampur.</p></div><div class="response-count"><b>${list.length}</b><small>respons tersimpan</small></div></section><div class="card response-manager"><div class="between"><div><h2>Respons per formulir</h2><p class="muted">Pilih formulir untuk melihat jawaban respondennya.</p></div><button class="btn cyan" id="csv" ${list.length?'':'disabled'}>↓ Ekspor CSV</button></div>${groupMarkup||'<div class="form-empty"><span>☷</span><b>Belum ada jawaban responden</b><small>Respons yang dikirim melalui halaman Form Penelitian akan muncul di sini.</small></div>'}</div>`;
   $$('[data-delete-response]').forEach(btn=>btn.onclick=async()=>{
     const id=btn.dataset.deleteResponse;
     const index=db.responses.findIndex(r=>String(r.id)===String(id));
@@ -1019,7 +1371,10 @@ function responses(){
   };
 }
 function users(){if(me.role!=='admin')return;$('#view').innerHTML=`<h1>Manajemen Akun</h1><div class="card"><h2>Tambah akun</h2><div class="row"><input id="un" placeholder="Username"><input id="pw" type="password" placeholder="Password"><select id="role"><option value="viewer">Pelihat</option><option value="admin">Admin</option></select><button class="btn cyan" id="adduser">Tambah</button></div></div><div class="card"><h2>Daftar akun</h2><div class="tablewrap"><table><tr><th>Username</th><th>Hak</th><th>Aksi</th></tr>${db.users.map(u=>`<tr><td>${esc(u.username)}</td><td>${u.role}</td><td><button class="btn light small" data-edit="${u.id}">Edit</button> <button class="btn danger small" data-remove="${u.id}" ${u.id===me.id?'disabled':''}>Hapus</button></td></tr>`).join('')}</table></div></div>`;$('#adduser').onclick=()=>{let username=$('#un').value.trim(),password=$('#pw').value;if(!username||!password)return alert('Isi username dan password.');if(db.users.some(u=>u.username===username))return alert('Username sudah dipakai.');db.users.push({id:uid(),username,password,role:$('#role').value});save();users()};$$('[data-edit]').forEach(b=>b.onclick=()=>{let u=db.users.find(x=>x.id===b.dataset.edit),n=prompt('Username',u.username);if(!n)return;let r=prompt('Role admin atau viewer',u.role);if(!['admin','viewer'].includes(r))return alert('Role tidak valid');let p=prompt('Password baru (kosong = tidak diubah)','');u.username=n;u.role=r;if(p)u.password=p;save();users()});$$('[data-remove]').forEach(b=>b.onclick=()=>{if(confirm('Hapus akun?')){db.users=db.users.filter(u=>u.id!==b.dataset.remove);save();users()}})}
-function settings(){$('#view').innerHTML=`<h1>Pengaturan</h1><div class="card"><h2>Ganti password</h2><input id="old" type="password" placeholder="Password lama"><input id="new" type="password" placeholder="Password baru"><button class="btn cyan" id="change">Simpan</button></div>`;$('#change').onclick=()=>{let u=db.users.find(x=>x.id===me.id);if(u.password!==$('#old').value)return alert('Password lama salah');if($('#new').value.length<6)return alert('Minimal 6 karakter');u.password=$('#new').value;save();alert('Password diubah')}}
+function settings(){
+ $('#view').innerHTML=`<section class="settings-page-hero"><div><span class="section-eyebrow" style="color:#8ce7f0">PREFERENSI AKUN</span><h1>Pengaturan</h1><p>Kelola keamanan akun dan preferensi akses FurqonHUB.</p></div><div class="settings-hero-icon">⚙</div></section><div class="settings-layout"><section class="settings-card-modern"><div class="settings-card-head"><span class="settings-card-icon">♙</span><div><h2>Keamanan akun</h2><p>Perbarui kata sandi untuk menjaga akun tetap aman.</p></div></div><div class="settings-field"><label for="old">Password saat ini</label><input id="old" type="password" autocomplete="current-password" placeholder="Masukkan password saat ini"></div><div class="settings-field"><label for="new">Password baru</label><input id="new" type="password" autocomplete="new-password" placeholder="Minimal 6 karakter"></div><div class="settings-field"><label for="confirmNew">Konfirmasi password baru</label><input id="confirmNew" type="password" autocomplete="new-password" placeholder="Ulangi password baru"></div><button class="btn cyan" id="change">Simpan password</button></section><aside class="settings-side-note"><b>Perlindungan akun</b><p>Gunakan password yang unik dan tidak mudah ditebak. Jangan membagikan password kepada orang lain. Perubahan password berlaku setelah berhasil disimpan.</p></aside></div>`;
+ $('#change').onclick=async()=>{const u=db.users.find(x=>x.id===me.id),old=$('#old').value,n=$('#new').value,c=$('#confirmNew').value;if(u.password!==old)return alert('Password saat ini salah.');if(n.length<6)return alert('Password baru minimal 6 karakter.');if(n!==c)return alert('Konfirmasi password belum sama.');u.password=n;await save();$('#old').value='';$('#new').value='';$('#confirmNew').value='';alert('Password berhasil diubah.')};
+}
 function blob(data,name,type){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click()}save();
 </script>
 <div id="uploadOverlay" class="upload-overlay hidden" role="status" aria-live="polite">
